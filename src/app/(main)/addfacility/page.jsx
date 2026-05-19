@@ -3,7 +3,9 @@ import React from 'react';
 const BookingPage = () => {
     return (
         <div>
-            Add Facility
+           <button className='button rounded-full  '>
+                button
+           </button>
         </div>
     );
 };

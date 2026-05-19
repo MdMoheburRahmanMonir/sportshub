@@ -1,12 +1,9 @@
-import Lorem from "@/components/shared/Lorem";
-
- 
 
 
-export default function Home() {
+export default async function Home() {
   return (
     <main >
-      <Lorem />
+      home
     </main>
   );
 }

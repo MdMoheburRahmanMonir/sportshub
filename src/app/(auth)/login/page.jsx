@@ -5,14 +5,16 @@ import { LuEyeClosed, LuEye } from "react-icons/lu";
 
 
 import Lottie from "lottie-react";
-import Welcome from "@/assats/Welcome.json";
-import olympic from "@/assats/Olympic.json";
+import Welcome from "@/assets/Welcome.json";
+import olympic from "@/assets/Olympic.json";
 
 import { FcGoogle } from "react-icons/fc";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { createAuthClient } from "better-auth/client";
+import { Description, FieldError, Input, Label, TextField } from "@heroui/react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function LoginPage() {
     const authClient = createAuthClient();
@@ -104,59 +106,82 @@ export default function LoginPage() {
                             <Lottie animationData={Welcome} loop={true} />
                         </h1>
 
-                        <p className="text-white/80 text-lg leading-relaxed  ">
+                        <p className="text-white  text-[25px] leading-relaxed  ">
                             Login to access your dashboard, <br /> manage your booking, <br /> and continue
                             your journey with our smart platform.
-                        </p>
-
-                        <div className="mt-6 hidden lg:block text-white/60 text-sm">
-                            Secure • Fast • Modern Experience
-                        </div>
+                        </p> 
                     </div>
 
                 </div>
 
                 <div className="lg:w-1/2 w-full md:w-[50%] flex items-center justify-center p-6 bg-background">
 
-                    <div className="w-full max-w-md bg-card border border-border rounded-2xl p-6 shadow-lg">
+                    <motion.div
+
+
+                        initial={{ opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 1 * 0.1 }}
+
+                        className="w-full max-w-md bg-card border border-border rounded-2xl p-6 shadow-lg">
 
                         {logRegvalue ?
 
-                            <form onSubmit={handelLogin} className="pb-4 ">
+                            <form
+                                onSubmit={handelLogin} className="pb-4 ">
                                 <h2 className="text-2xl font-bold text-center mb-6">
                                     Sign in to your account
                                 </h2>
 
 
                                 <div className="mb-4">
-                                    <label className="text-sm text-muted-foreground">Email</label>
-                                    <input
+                                    <TextField
+                                        isRequired
                                         name="email"
                                         type="email"
-                                        placeholder="you@example.com"
-                                        className="w-full mt-1 px-3 py-2 rounded-lg border border-border bg-background focus:ring-2 text-black dark:text-white focus:ring-primary outline-none"
-                                    />
+                                        validate={(value) => {
+                                            if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+                                                return "Please enter a valid email address";
+                                            }
+                                            return null;
+                                        }}
+                                    >
+                                        <Label>Email</Label>
+                                        <Input name="email" placeholder="john@example.com" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-white dark:bg-black placeholder:text-black dark:placeholder:text-white`} />
+                                        <FieldError />
+                                    </TextField>
                                 </div>
 
                                 <div className="mb-4 space-y-2">
-                                    <label className="text-sm text-muted-foreground">Password</label>
 
-                                    <div className="relative mt-1">
-                                        <input
-                                            name="password"
-                                            type={showPassword ? "text" : "password"}
-                                            placeholder="••••••••"
-                                            className="w-full px-3 py-2 rounded-lg border border-border bg-background focus:ring-2 text-black dark:text-white focus:ring-primary outline-none"
-                                        />
-
-                                        <button
-                                            type="button"
-                                            onClick={() => setShowPassword(!showPassword)}
-                                            className="absolute right-3 top-2.5 text-muted-foreground"
-                                        >
-                                            {showPassword ? <LuEye /> : <LuEyeClosed size={18} />}
-                                        </button>
-                                    </div>
+                                    <TextField
+                                        isRequired
+                                        minLength={8}
+                                        name="password"
+                                        type={showPassword ? "text" : "password"}
+                                        validate={(value) => {
+                                            if (value.length < 8) {
+                                                return "Password must be at least 8 characters";
+                                            }
+                                            if (!/[A-Z]/.test(value)) {
+                                                return "Password must contain at least one uppercase letter";
+                                            }
+                                            if (!/[0-9]/.test(value)) {
+                                                return "Password must contain at least one number";
+                                            }
+                                            return null;
+                                        }}
+                                    >
+                                        <Label>Password</Label>
+                                        <div className="relative">
+                                            <p onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-2.5  " >
+                                                {showPassword ? <LuEye /> : <LuEyeClosed size={18} />}
+                                            </p>
+                                            <Input name="password" placeholder="Enter your password" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-white dark:bg-black placeholder:text-black dark:placeholder:text-white`} />
+                                        </div>
+                                        <Description className="text-black dark:text-white">Must be at least 8 characters with 1 uppercase and 1 number</Description>
+                                        <FieldError />
+                                    </TextField>
                                     <div className="flex items-center justify-between text-sm mb-4">
                                         <label className="flex items-center gap-2 text-muted-foreground">
                                             <input name="rememberMe" type="checkbox" className="accent-primary" />
@@ -175,60 +200,84 @@ export default function LoginPage() {
                                 </button>
                             </form>
                             :
-                            <form onSubmit={handelSignup} className=" ">
+                            <form
+                                onSubmit={handelSignup} className=" ">
                                 <h2 className="text-2xl font-bold text-center mb-6">
                                     Create your account
                                 </h2>
 
                                 <div className="mb-4">
-                                    <label className="text-sm text-muted-foreground">Name</label>
-                                    <input
-                                        name="name"
-                                        type="text"
-                                        placeholder="Your name"
-                                        className="w-full mt-1 px-3 py-2 rounded-lg border border-border bg-background text-black dark:text-white focus:ring-2 focus:ring-primary outline-none"
-                                    />
-                                </div>
-
-                                <div className="mb-4">
-                                    <label className="text-sm text-muted-foreground">Email</label>
-                                    <input
-                                        name="email"
-                                        type="email"
-                                        placeholder="you@example.com"
-                                        className="w-full mt-1 px-3 py-2 rounded-lg border border-border text-black dark:text-white bg-background  focus:ring-2 focus:ring-primary outline-none"
-                                    />
-                                </div>
-
-                                <div className="mb-4">
-                                    <label className="text-sm text-muted-foreground">Photo URL</label>
-                                    <input
+                                    <TextField
+                                        isRequired
                                         name="image"
                                         type="text"
-                                        placeholder="https://your-image.com/photo.jpg"
-                                        className="w-full mt-1 px-3 py-2 rounded-lg border border-border bg-background focus:ring-2 text-black dark:text-white focus:ring-primary outline-none"
-                                    />
+                                    >
+                                        <Label>Name</Label>
+                                        <Input name="name" placeholder="Enter your Name" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-white dark:bg-black placeholder:text-black dark:placeholder:text-white`} />
+                                        <FieldError />
+                                    </TextField>
                                 </div>
 
                                 <div className="mb-4">
-                                    <label className="text-sm text-muted-foreground">Password</label>
+                                    <TextField
+                                        isRequired
+                                        name="email"
+                                        type="email"
+                                        validate={(value) => {
+                                            if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+                                                return "Please enter a valid email address";
+                                            }
+                                            return null;
+                                        }}
+                                    >
+                                        <Label>Email</Label>
+                                        <Input name="email" placeholder="john@example.com" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-white dark:bg-black placeholder:text-black dark:placeholder:text-white`} />
+                                        <FieldError />
+                                    </TextField>
+                                </div>
 
-                                    <div className="relative mt-1">
-                                        <input
-                                            name="password"
-                                            type={showPassword ? "text" : "password"}
-                                            placeholder="••••••••"
-                                            className="w-full px-3 py-2 rounded-lg border border-border text-black dark:text-white bg-background focus:ring-2 focus:ring-primary outline-none"
-                                        />
+                                <div className="mb-4">
+                                    <TextField
+                                        isRequired
+                                        name="image"
+                                        type="text"
+                                    >
+                                        <Label>ImageUrl</Label>
+                                        <Input name="image" placeholder="Enter your Image Url" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-white dark:bg-black placeholder:text-black dark:placeholder:text-white`} />
+                                        <FieldError />
+                                    </TextField>
+                                </div>
 
-                                        <button
-                                            type="button"
-                                            onClick={() => setShowPassword(!showPassword)}
-                                            className="absolute right-3 top-2.5 text-muted-foreground"
-                                        >
-                                            {showPassword ? <LuEye /> : <LuEyeClosed size={18} />}
-                                        </button>
-                                    </div>
+                                <div className="mb-4">
+                                    <TextField
+                                        isRequired
+                                        minLength={8}
+                                        name="password"
+                                        type={showPassword ? "text" : "password"}
+                                        validate={(value) => {
+                                            if (value.length < 8) {
+                                                return "Password must be at least 8 characters";
+                                            }
+                                            if (!/[A-Z]/.test(value)) {
+                                                return "Password must contain at least one uppercase letter";
+                                            }
+                                            if (!/[0-9]/.test(value)) {
+                                                return "Password must contain at least one number";
+                                            }
+                                            return null;
+                                        }}
+                                        className={`relative`}
+                                    >
+                                        <Label>Password</Label>
+                                        <div className="relative">
+                                            <p onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-2.5  " >
+                                                {showPassword ? <LuEye /> : <LuEyeClosed size={18} />}
+                                            </p>
+                                            <Input name="password" placeholder="Enter your password" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-white dark:bg-black placeholder:text-black dark:placeholder:text-white`} />
+                                        </div>
+                                        <Description className="text-black  dark:text-white">Must be at least 8 characters with 1 uppercase and 1 number</Description>
+                                        <FieldError />
+                                    </TextField>
                                 </div>
 
                                 <button type="submit" className="w-full py-2 rounded-lg shadow shadow-black/20 bg-blue-600/70 cursor-pointer text-black dark:text-white font-medium hover:opacity-90 transition">
@@ -261,11 +310,11 @@ export default function LoginPage() {
                         </button>
 
 
-                    </div>
+                    </motion.div>
 
                 </div>
 
             </div>
-        </div>
+        </div >
     );
 }

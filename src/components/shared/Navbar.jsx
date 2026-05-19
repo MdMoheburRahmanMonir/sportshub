@@ -31,21 +31,21 @@ export default function Navbar() {
 
 
     return (
-        <nav className="w-11/12 mx-auto grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 px-6 md:px-12 py-1 justify-between font-sans text-center sticky top-0 z-50">
+        <nav className="w-11/12 mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-2 px-6 md:px-12 py-1 justify-between font-sans text-center sticky top-0 z-50">
             <div className="flex justify-self-start items-center backdrop-blur-[3px] px-4 rounded-full">
                 <Link href="/" className="flex items-center space-x-2">
                     <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-md">
                         <img src="/sportshub.png" alt="" />
                     </div>
 
-                    <span className="font-bold transition-all duration-300 delay-300 text-2xl tracking-tight hidden sm:block">
+                    <span className="font-bold transition-all duration-300 delay-300 text-2xl tracking-tight   sm:block">
                         SPORTS<span className="text-blue-500">HUB</span>
                     </span>
                 </Link>
             </div>
 
-            <div className="hidden   justify-self-center rounded-full px-4 p-2 backdrop-blur-[3px] dark:bg-white/10 border border-black/2 dark:border-white/20 bg-black/10 shadow-[inset_0_0_2px_1px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0_2px_1px_rgba(255,255,255,0.1)] md:flex items-center space-x-8">
-                {navLinks.slice(0,  !session?.user ? 5 : 2).map((link) => {
+            <div className="hidden md:hidden lg:flex justify-self-center rounded-full px-4 p-2 backdrop-blur-[3px] dark:bg-white/10 border border-black/2 dark:border-white/20 bg-black/10 shadow-[inset_0_0_2px_1px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0_2px_1px_rgba(255,255,255,0.1)] md:flex items-center space-x-8">
+                {navLinks.slice(0, !session?.user ? 5 : 2).map((link) => {
                     const isActive = pathname === link.href;
 
                     return (
@@ -100,7 +100,7 @@ export default function Navbar() {
                             }
                         }}></Hamburger>
                     </div>
-                    <ul tabIndex="1" className={`space-y-2 ${togglevalue ? 'dropdown-content  ' : 'hidden'} menu bg-base-100 right-1 shadow dark:shadow-white/30 shadow-black/20 bg-transparent backdrop-blur-[3px] rounded-lg z-1 w-32 p-1 `}>
+                    <ul tabIndex="1" className={`space-y-2 ${togglevalue ? 'dropdown-content  absolute top-15' : 'hidden'} menu bg-base-100 right-1 shadow dark:shadow-white/30 shadow-black/20 bg-transparent backdrop-blur-[3px] rounded-lg z-1 w-32 p-1 `}>
                         <div className={` text-center`}>
                             <AnimatedThemeToggler />
                         </div>
@@ -125,8 +125,7 @@ export default function Navbar() {
 
                         {session?.user
                             ?
-                            <div>
-
+                            <div> 
                                 <Link
                                     href="/profile"
                                     className={`${isActive
@@ -164,12 +163,13 @@ export default function Navbar() {
                                     </svg>
                                 </Link>
                             </div>
+
                             : <Link
                                 href="/login"
                                 className={`${isActive
                                     ? 'font-semibold text-blue-600'
                                     : ''
-                                    } inline-flex relative before:left-4  before:absolute before:w-[0%] hover:before:w-[70%] before:h-[2px] before:bottom-1 before:transition-all before:duration-300 delay-200 backdrop-blur-[3px] shadow-[inset_0_0_2px_1px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0_2px_1px_rgba(255,255,255,0.1)] items-center justify-center px-4 py-2 font-semibold rounded-full transition-all duration-200 group shadow-sm hover:shadow"
+                                    }  inline-flex relative before:left-4  before:absolute before:w-[0%] hover:before:w-[70%] before:h-[2px] before:bottom-1 before:transition-all before:duration-300 delay-200 backdrop-blur-[3px] shadow-[inset_0_0_2px_1px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0_2px_1px_rgba(255,255,255,0.1)] items-center justify-center px-4 py-2 font-semibold rounded-full transition-all duration-200 group shadow-sm hover:shadow"
                                 `}
                             >
                                 Login
