@@ -1,21 +1,45 @@
 'use client';
-
-import React, { useState } from 'react';
-import { FaBuilding, FaFootballBall, FaImage, FaDollarSign, FaClock, FaUser, FaMapMarkerAlt, FaUsers } from 'react-icons/fa';
+import { FaBuilding } from 'react-icons/fa';
+import { authClient } from "@/lib/auth-client" 
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 export default function SportsFacilityForm() {
-     
-    const handleSubmit = (e) => {
-        e.preventDefault(); 
+
+    const { data: session } = authClient.useSession()
+    const userEmail = session?.user?.email || 'owner@email.com';
+
+    const router = useRouter();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
 
-        // Convert price and capacity to numbers
-        data.price = parseInt(data.price);
+        data.price = parseInt(data.pricePerHour);
         data.capacity = parseInt(data.capacity);
+        data.email = userEmail;
 
-  
+        const { data: sessionData, error } = await authClient.token()
+
+
+        const postData = await fetch('http://localhost:5000/addfacility', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${sessionData?.token}`,
+
+            },
+            body: JSON.stringify(data)
+        });
+        const result = await postData.json();
+        if (postData.ok) {
+            router.push('/allfacilities');
+        } else {
+            toast.error(result.message || 'Failed to add facility');
+        } 
+
     };
 
     return (
@@ -41,7 +65,7 @@ export default function SportsFacilityForm() {
                     <div>
                         <label className="font-semibold text-sm">Facility Name</label>
                         <input
-                            name="name" 
+                            name="facilityName"
                             placeholder="Premium Indoor Turf"
                             className="shadow-lg dark:shadow-white/15 shadow-black/15 w-full mt-2 px-4 py-3 rounded-xl bg-white dark:bg-slate-900 text-black dark:text-white"
                             required
@@ -52,7 +76,7 @@ export default function SportsFacilityForm() {
                     <div>
                         <label className="font-semibold text-sm">Facility Type</label>
                         <select
-                            name="type" 
+                            name="facilityType"
                             className="shadow-lg dark:shadow-white/15 shadow-black/15 w-full mt-2 px-4 py-3 rounded-xl bg-white dark:bg-slate-900"
                             required
                         >
@@ -69,7 +93,7 @@ export default function SportsFacilityForm() {
                     <div>
                         <label className="font-semibold text-sm">Image URL</label>
                         <input
-                            name="image" 
+                            name="image"
                             placeholder="https://imgbb.com/..."
                             className="shadow-lg dark:shadow-white/15 shadow-black/15 w-full mt-2 px-4 py-3 rounded-xl bg-white dark:bg-slate-900"
                             required
@@ -80,7 +104,7 @@ export default function SportsFacilityForm() {
                     <div>
                         <label className="font-semibold text-sm">Location</label>
                         <input
-                            name="location" 
+                            name="location"
                             placeholder="Sylhet, Bangladesh"
                             className="shadow-lg dark:shadow-white/15 shadow-black/15 w-full mt-2 px-4 py-3 rounded-xl bg-white dark:bg-slate-900"
                             required
@@ -89,29 +113,35 @@ export default function SportsFacilityForm() {
 
                     {/* Price + Capacity */}
                     <div className="grid grid-cols-2 gap-4">
+                        <div>
 
-                        <input
-                            name="price"
-                            type="number" 
-                            placeholder="Price per hour"
-                            className="shadow-lg dark:shadow-white/15 shadow-black/15 w-full mt-2 px-4 py-3 rounded-xl bg-white dark:bg-slate-900"
-                            required
-                        />
+                            <label className="font-semibold text-sm">Capacity</label>
+                            <input
+                                name="pricePerHour"
+                                type="number"
+                                placeholder="Price per hour"
+                                className="shadow-lg dark:shadow-white/15 shadow-black/15 w-full mt-2 px-4 py-3 rounded-xl bg-white dark:bg-slate-900"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className="font-semibold text-sm">Price per Hour</label>
 
-                        <input
-                            name="capacity"
-                            type="number" 
-                            placeholder="Capacity"
-                            className="shadow-lg dark:shadow-white/15 shadow-black/15 w-full mt-2 px-4 py-3 rounded-xl bg-white dark:bg-slate-900"
-                            required
-                        />
+                            <input
+                                name="capacity"
+                                type="number"
+                                placeholder="Capacity"
+                                className="shadow-lg dark:shadow-white/15 shadow-black/15 w-full mt-2 px-4 py-3 rounded-xl bg-white dark:bg-slate-900"
+                                required
+                            />
+                        </div>
                     </div>
 
                     {/* Slots */}
                     <div>
                         <label className="font-semibold text-sm">Available Time Slots</label>
                         <input
-                            name="slots" 
+                            name="availableTimeSlots"
                             placeholder="06:00 AM - 11:00 PM"
                             className="shadow-lg dark:shadow-white/15 shadow-black/15 w-full mt-2 px-4 py-3 rounded-xl bg-white dark:bg-slate-900"
                             required
@@ -122,7 +152,7 @@ export default function SportsFacilityForm() {
                     <div>
                         <label className="font-semibold text-sm">Description</label>
                         <textarea
-                            name="description" 
+                            name="description"
                             rows={4}
                             placeholder="Facility details..."
                             className="shadow-lg dark:shadow-white/15 shadow-black/15 w-full mt-2 px-4 py-3 rounded-xl bg-white dark:bg-slate-900"
@@ -131,15 +161,20 @@ export default function SportsFacilityForm() {
                     </div>
 
                     {/* Owner Email */}
-                    <div>
+                    <div className="group relative">
                         <label className="font-semibold text-sm">Owner Email</label>
                         <input
                             name="ownerEmail"
-                            type="email" 
+                            disabled
+                            defaultValue={userEmail}
+                            type="email"
                             placeholder="owner@email.com"
                             className="shadow-lg dark:shadow-white/15 shadow-black/15 w-full mt-2 px-4 py-3 rounded-xl bg-white dark:bg-slate-900"
-                            required
+
                         />
+                        <p className="text-xs text-red-400 group-hover:block hidden text-gray-500 mt-1 absolute -bottom-5 left-0">
+                            This is your registered email address.  You can change it from your profile settings.
+                        </p>
                     </div>
 
                     {/* Submit */}
