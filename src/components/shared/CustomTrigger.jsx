@@ -9,8 +9,7 @@ export function CustomTrigger() {
 
     const router = useRouter();
 
-    const { data: session } = authClient.useSession()
-    console.log(session);
+    const { data: session } = authClient.useSession() 
 
     const handelSignOut = async e => {
         await authClient.signOut();

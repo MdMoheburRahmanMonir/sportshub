@@ -18,7 +18,7 @@ const FooterPage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 text-center md:text-start lg:text-start gap-10 pb-10">
                     <div>
                         <h1 className="text-2xl font-bold dark:text-white text-black mb-4">
-                            SPORTS <span className="text-blue-600">HUB</span>
+                            SPORTS<span className="text-blue-600">HUB</span>
                         </h1>
 
                         <p className="text-sm leading-6 text-gray-600 dark:text-gray-400">

@@ -9,8 +9,7 @@ import { CustomTrigger } from './CustomTrigger';
 
 
 export default function Navbar() {
-    const { data: session } = authClient.useSession()
-    console.log(session);
+    const { data: session } = authClient.useSession() 
 
 
     const pathname = usePathname();
@@ -19,10 +18,10 @@ export default function Navbar() {
 
     const navLinks = [
         { name: 'Home', href: '/' },
-        { name: 'AllFacilities', href: '/allfacilities' },
-        { name: 'MyBookings', href: '/mybookings' },
-        { name: 'AddFacility', href: '/addfacility' },
-        { name: 'ManageMyFacilities', href: '/managemyfacilities' },
+        { name: 'Facilities', href: '/allfacilities' },
+        { name: 'Add Facility', href: '/addfacility' },
+        { name: 'My Bookings', href: '/mybookings' },
+        { name: 'Dashboard', href: '/managemyfacilities' },
     ];
     const handelSignOut = async e => {
         await authClient.signOut();
@@ -32,7 +31,7 @@ export default function Navbar() {
 
     return (
         <nav className="w-11/12 mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-2 px-6 md:px-12 py-1 justify-between font-sans text-center sticky top-0 z-50">
-            <div className="flex justify-self-start items-center backdrop-blur-[3px] px-4 rounded-full">
+            <div className="flex justify-self-start items-center backdrop-blur-[8px] px-4 rounded-full">
                 <Link href="/" className="flex items-center space-x-2">
                     <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-md">
                         <img src="/sportshub.png" alt="" />
@@ -44,7 +43,7 @@ export default function Navbar() {
                 </Link>
             </div>
 
-            <div className="hidden md:hidden lg:flex justify-self-center rounded-full px-4 p-2 backdrop-blur-[3px] dark:bg-white/10 border border-black/2 dark:border-white/20 bg-black/10 shadow-[inset_0_0_2px_1px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0_2px_1px_rgba(255,255,255,0.1)] md:flex items-center space-x-8">
+            <div className="hidden md:hidden lg:flex justify-self-center rounded-full px-4 p-2 backdrop-blur-[8px] dark:bg-white/10 border border-black/2 dark:border-white/20 bg-black/10 shadow-[inset_0_0_2px_1px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0_2px_1px_rgba(255,255,255,0.1)] md:flex items-center space-x-4">
                 {navLinks.slice(0, !session?.user ? 5 : 2).map((link) => {
                     const isActive = pathname === link.href;
 
@@ -52,10 +51,8 @@ export default function Navbar() {
                         <Link
                             key={link.href}
                             href={link.href}
-                            className={`transition duration-200 hover:text-blue-600 delay-200 font-medium relative before:absolute before:w-[0%] hover:before:w-full before:h-[2px] before:bg-blue-300 before:bottom-0 before:left-0 before:transition-all before:duration-200${isActive
-                                ? 'font-semibold  before:w-full border-blue-600  text-blue-600'
-                                : ''
-                                }`}
+                            className={`transition truncate duration-200 hover:text-blue-600 delay-200 font-medium text-sm relative before:absolute before:w-[0%] hover:before:w-full before:h-[2px] before:bg-blue-600 before:bottom-0 before:left-0 before:transition-all before:duration-200${isActive
+                                && 'font-semibold text-blue-600'  }`}
                         >
                             {link.name}
                         </Link>
@@ -73,7 +70,7 @@ export default function Navbar() {
                         className={`${isActive
                             ? 'font-semibold text-blue-600'
                             : ''
-                            }  inline-flex  relative before:left-4 before:absolute before:w-[0%] hover:before:w-[70%] before:h-[2px] before:bg-blue-300 before:bottom-1 before:transition-all before:duration-300 delay-200 backdrop-blur-[3px] dark:bg-white/10 border-2 border-black/10 dark:border-white/10 bg-black/10 shadow-[inset_0_0_2px_1px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0_2px_1px_rgba(255,255,255,0.1)] items-center justify-center px-4 py-2 font-semibold rounded-full transition-all duration-200 group shadow-sm hover:shadow"
+                            }  inline-flex  relative text-sm before:left-4 before:absolute before:w-[0%] hover:before:w-[70%] before:h-[2px] before:bg-blue-600 before:bottom-1 before:transition-all before:duration-300 delay-200 backdrop-blur-[8px] dark:bg-white/10 border-2 border-black/10 dark:border-white/10 bg-black/10 shadow-[inset_0_0_2px_1px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0_2px_1px_rgba(255,255,255,0.1)] items-center justify-center px-4 py-2 font-semibold rounded-full transition-all duration-200 group hover:shadow
                                 `}
                     >
                         Login
@@ -100,7 +97,7 @@ export default function Navbar() {
                             }
                         }}></Hamburger>
                     </div>
-                    <ul tabIndex="1" className={`space-y-2 ${togglevalue ? 'dropdown-content  absolute top-15' : 'hidden'} menu bg-base-100 right-1 shadow dark:shadow-white/30 shadow-black/20 bg-transparent backdrop-blur-[3px] rounded-lg z-1 w-32 p-1 `}>
+                    <ul tabIndex="1" className={`space-y-2 ${togglevalue ? 'dropdown-content  absolute top-15' : 'hidden'} menu bg-base-100 right-1 shadow dark:shadow-white/30 shadow-black/20 bg-transparent backdrop-blur-[8px] rounded-lg z-1 w-32 p-1 `}>
                         <div className={` text-center`}>
                             <AnimatedThemeToggler />
                         </div>
@@ -131,7 +128,7 @@ export default function Navbar() {
                                     className={`${isActive
                                         ? 'font-semibold text-blue-600'
                                         : ''
-                                        } inline-flex  relative before:left-4 before:absolute before:w-[0%] hover:before:w-[70%] before:h-[2px] before:bottom-1 before:transition-all before:duration-300 delay-200 backdrop-blur-[3px]  items-center justify-center font-semibold rounded-full transition-all duration-200 group  "
+                                        } inline-flex  relative before:left-4 before:absolute before:w-[0%] hover:before:w-[70%] before:h-[2px] before:bottom-1 before:transition-all before:duration-300 delay-200 backdrop-blur-[8px]  items-center justify-center font-semibold rounded-full transition-all duration-200 group  "
                                 `}
                                 >
                                     Profile
@@ -148,7 +145,7 @@ export default function Navbar() {
                                 <Link
                                     href="/login"
                                     onClick={async () => await authClient.signOut()}
-                                    className={`  inline-flex hover:text-red-600 text-red-600/70 relative before:left-4 before:absolute before:w-[0%] hover:before:w-[70%] before:h-[2px] before:bottom-1 before:transition-all before:duration-300 delay-200 backdrop-blur-[3px]  items-center justify-center font-semibold rounded-full transition-all duration-200 group  "
+                                    className={`  inline-flex hover:text-red-600 text-red-600/70 relative before:left-4 before:absolute before:w-[0%] hover:before:w-[70%] before:h-[2px] before:bottom-1 before:transition-all before:duration-300 delay-200 backdrop-blur-[8px]  items-center justify-center font-semibold rounded-full transition-all duration-200 group  "
                                 `}
                                 >
                                     logout
@@ -169,7 +166,7 @@ export default function Navbar() {
                                 className={`${isActive
                                     ? 'font-semibold text-blue-600'
                                     : ''
-                                    }  inline-flex relative before:left-4  before:absolute before:w-[0%] hover:before:w-[70%] before:h-[2px] before:bottom-1 before:transition-all before:duration-300 delay-200 backdrop-blur-[3px] shadow-[inset_0_0_2px_1px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0_2px_1px_rgba(255,255,255,0.1)] items-center justify-center px-4 py-2 font-semibold rounded-full transition-all duration-200 group shadow-sm hover:shadow"
+                                    }  inline-flex relative before:left-4  before:absolute before:w-[0%] hover:before:w-[70%] before:h-[2px] before:bottom-1 before:transition-all before:duration-300 delay-200 backdrop-blur-[8px] shadow-[inset_0_0_2px_1px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0_2px_1px_rgba(255,255,255,0.1)] items-center justify-center px-4 py-2 font-semibold rounded-full transition-all duration-200 group shadow-sm hover:shadow"
                                 `}
                             >
                                 Login

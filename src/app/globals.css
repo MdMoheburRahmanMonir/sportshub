@@ -525,3 +525,18 @@
 .neon-checkbox__rings .ring:nth-child(3) {
   animation-delay: 0.2s;
 }
+
+
+.swiper-pagination-bullet {
+    background: #3b82f6 !important; /* blue */
+    opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+    background: #2563eb !important; /* darker blue */
+    opacity: 1;
+}
+
+#react-aria-_R_1aeslritpeqlbH7_{
+  color: var(--primary);
+}

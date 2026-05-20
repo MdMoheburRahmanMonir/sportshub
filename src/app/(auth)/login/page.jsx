@@ -11,14 +11,12 @@ import olympic from "@/assets/Olympic.json";
 import { FcGoogle } from "react-icons/fc";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
 import { createAuthClient } from "better-auth/client";
 import { Description, FieldError, Input, Label, TextField } from "@heroui/react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function LoginPage() {
     const authClient = createAuthClient();
-    const router = useRouter()
     const [showPassword, setShowPassword] = useState(false);
     const [logRegvalue, setLogRegvalue] = useState(true);
 
@@ -52,27 +50,28 @@ export default function LoginPage() {
             },
 
         );
-
-        console.log(RegistrationData, data, error);
+ 
     }
     const handelLogin = async e => {
         e.preventDefault()
+
+        
+        
         const dataRes = new FormData(e.currentTarget);
         const LoginData = Object.fromEntries(dataRes.entries())
-
-        const { email, password, rememberMe } = LoginData;
+        
+        const { email, password } = LoginData;
         const { data, error } = await authClient.signIn.email({
             email,
             password,
-            rememberMe,
             callbackURL: "/",
         },
-            {
-                onRequest: (ctx) => {
-                    toast.info('Login progress')
-                },
-                onSuccess: (ctx) => {
-                    toast.success('Hay Your Login Success')
+        {
+            onRequest: (ctx) => {
+                toast.info('Login progress')
+            },
+            onSuccess: (ctx) => {
+                toast.success('Hay Your Login Success')
                 },
                 onError: (ctx) => {
                     // display the error message
@@ -80,24 +79,27 @@ export default function LoginPage() {
                 },
             }
         );
-        console.log(LoginData, data, error);
+        const { data: jwtData, error: jwtError } = await authClient.token()
+        console.log(jwtData, jwtError);
 
     }
 
     const googleLogin = async () => {
         const data = await authClient.signIn.social({
             provider: "google",
-        });
-        console.log(data);
+        }); 
 
     }
 
 
 
     return (
-        <div className="w-11/12 mx-auto py-12">
+        <div className="w-11/12 mx-auto py-12 relative">
+            <div className="absolute top-0 left-0 w-96 h-96 bg-blue-600/30 blur-3xl rounded-full"></div>
+            <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/20 blur-3xl rounded-full"></div>
+            <div className="absolute bottom-0 right-100  w-96 h-96 bg-blue-500/20 blur-3xl rounded-full"></div>
             <div className="rounded-2xl w-full flex flex-col lg:flex-row">
-                <div className="relative w-full  md:w-[50%] bg-gradient-to-br lg:rounded-2xl md:rounded-2xl rounded-2xl md:rounded-b-none from-primary to-blue-600 text-white flex items-center justify-center p-10">
+                <div className="relative w-full  md:w-[50%] bg-gradient-to-br lg:rounded-2xl md:rounded-2xl rounded-2xl md:rounded-b-none from-black to-blue-600 text-white flex items-center justify-center p-10">
                     <div className="absolute   z-10 ">
                         <Lottie className="hidden md:block lg:block" animationData={olympic} loop={true} style={{ width: 400, height: 400, opacity: 0.3 }} />
                     </div>
@@ -109,7 +111,7 @@ export default function LoginPage() {
                         <p className="text-white  text-[25px] leading-relaxed  ">
                             Login to access your dashboard, <br /> manage your booking, <br /> and continue
                             your journey with our smart platform.
-                        </p> 
+                        </p>
                     </div>
 
                 </div>
@@ -123,7 +125,7 @@ export default function LoginPage() {
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5, delay: 1 * 0.1 }}
 
-                        className="w-full max-w-md bg-card border border-border rounded-2xl p-6 shadow-lg">
+                        className="w-full backdrop-blur-[8px] bg-transparent max-w-md bg-card border border-border rounded-2xl p-6 shadow-lg">
 
                         {logRegvalue ?
 
