@@ -19,7 +19,7 @@ export default function Navbar() {
     const navLinks = [
         { name: 'Home', href: '/' },
         { name: 'Facilities', href: '/allfacilities' },
-        { name: 'Add Facility', href: '/addfacility' },
+        { name: 'Add Facilities', href: '/addfacilities' },
         { name: 'My Bookings', href: '/mybookings' },
         { name: 'Dashboard', href: '/managemyfacilities' },
     ];

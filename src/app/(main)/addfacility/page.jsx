@@ -24,7 +24,7 @@ export default function SportsFacilityForm() {
         const { data: sessionData, error } = await authClient.token()
 
 
-        const postData = await fetch('http://localhost:5000/addfacility', {
+        const postData = await fetch('http://localhost:5000/addfacilities', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export default function SportsFacilityForm() {
         });
         const result = await postData.json();
         if (postData.ok) {
-            router.push('/allfacilities');
+            router.push('/addfacilities');
         } else {
             toast.error(result.message || 'Failed to add facility');
         } 
