@@ -19,7 +19,7 @@ export default async function ManageMyFacilitiesPage() {
     console.log(session?.user?.email, token);
     const userEmail = session?.user?.email;
 
-    const res = await fetch(`http://localhost:5000/managemyfacilities/${userEmail}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/managemyfacilities/${userEmail}`, {
         // headers: {
 
         // }    

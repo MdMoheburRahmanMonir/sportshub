@@ -1,3 +1,4 @@
+ 
 import { auth } from '@/lib/auth';
 import { logger } from 'better-auth';
 import { headers } from 'next/headers';
@@ -12,48 +13,44 @@ const FacilityDetailsPage = async ({ params }) => {
 
     const userID = session?.user?.id;
 
-    if (!userID) {
-        redirect("/login");
-    }
+    // if (!userID) {
+    //     redirect("/login");
+    // }
 
 
-    const { id } = await params;
-    console.log(userID, id);
-    const { token } = await auth.api.getToken({
-        headers: await headers()
-    });
+    const { id } = await params; 
+    // const userID = "hello"
 
+    const res = await fetch(`${process.env.SERVER_URL}/facilities/${id}`);
 
-
-    const res = await fetch(`http://localhost:5000/facilities/${id}`, {
-        cache: 'no-store',
-        headers: {
-            'Authorization': `Bearer ${token}`,
-        },
-    });
-
-    const data = await res.json();
+    const data = await res.json(); 
 
     const handelSubmit = async (formData) => {
         "use server";
-        const bookingData = {
+
+        // if (!userID) {
+        //     redirect("/login");
+        // }
+        const bookingData = { 
             facility_id: data._id,
             facility_name: data.facilityName,
-            price_per_hour: data.price,
-            total_price: formData.get("hours") * data.price,
+            facilityType: data.facilityType,
+            pricePerHour: data.pricePerHour,
+            total_price: Number(formData.get("hours")) * Number(data.pricePerHour),
             booking_date: formData.get("bookingDate"),
             time_slot: formData.get("timeSlot"),
             hours: formData.get("hours"),
             status: "pending",
             createdAt: new Date(),
-            user_id: userID,
+            user_id: userID || "User Not Login",
         };
+ 
 
-        const response = await fetch(`http://localhost:5000/facility`, {
+        const response = await fetch(`${process.env.SERVER_URL}/facilities`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
+                // 'authorization': `Bearer ${token}`,
             },
             body: JSON.stringify(bookingData),
         });
@@ -64,27 +61,13 @@ const FacilityDetailsPage = async ({ params }) => {
         } else {
             console.error('Booking failed:', result);
         }
-        console.log(bookingData, result);
+        console.log(result);
     };
 
-    const availableOptions = [
-        "06:00 AM - 07:00 AM",
-        "07:00 AM - 08:00 AM",
-        "08:00 AM - 09:00 AM",
-        "09:00 AM - 10:00 AM",
-        "12:00 PM - 01:00 PM",
-        "01:00 PM - 02:00 PM",
-        "02:00 PM - 03:00 PM",
-        "06:00 PM - 07:00 PM",
-        "07:00 PM - 08:00 PM",
-        "08:00 PM - 09:00 PM",
-        "09:00 PM - 10:00 PM",
-    ];
     return (
         <div className="w-11/12 mx-auto py-10 flex justify-center">
             <div className=" w-full bg-transparent backdrop-blur-[6px] shadow dark:shadow-white/20 shadow-black/20 rounded-3xl shadow-xl overflow-hidden">
 
-                {/* Image */}
                 <div className="w-full h-[600px]">
                     <img
                         src={data.image}
@@ -93,10 +76,9 @@ const FacilityDetailsPage = async ({ params }) => {
                     />
                 </div>
 
-                {/* Content */}
                 <div className="p-8 space-y-6 flex flex-col">
 
-                    {/* Title + Type */}
+
                     <div>
                         <h1 className="text-3xl lg:text-4xl font-bold text-slate-800 dark:text-white">
                             {data.facilityName}
@@ -110,7 +92,6 @@ const FacilityDetailsPage = async ({ params }) => {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-                        {/* Location */}
                         <div className="p-4 rounded-xl bg-transparent backdrop-blur-[5px] shadow-md dark:shadow-white/30 shadow-black/30 hover:scale-105 transition-all duration-200">
                             <div className="flex items-center gap-2 mb-1 text-slate-500">
                                 <FaMapMarkerAlt className="text-blue-500" />
@@ -122,7 +103,6 @@ const FacilityDetailsPage = async ({ params }) => {
                             </p>
                         </div>
 
-                        {/* Price */}
                         <div className="p-4 rounded-xl bg-transparent backdrop-blur-[5px] shadow-md dark:shadow-white/30 shadow-black/30 hover:scale-105 transition-all duration-200">
                             <div className="flex items-center gap-2 mb-1 text-slate-500">
                                 <FaDollarSign className="text-blue-500" />
@@ -134,7 +114,7 @@ const FacilityDetailsPage = async ({ params }) => {
                             </p>
                         </div>
 
-                        {/* Capacity */}
+
                         <div className="p-4 rounded-xl bg-transparent backdrop-blur-[5px] shadow-md dark:shadow-white/30 shadow-black/30 hover:scale-105 transition-all duration-200">
                             <div className="flex items-center gap-2 mb-1 text-slate-500">
                                 <FaUsers className="text-blue-500" />
@@ -148,7 +128,7 @@ const FacilityDetailsPage = async ({ params }) => {
 
                     </div>
 
-                    {/* Description */}
+
                     <div>
                         <h2 className="text-xl font-semibold text-slate-800 dark:text-white mb-2">
                             Description
@@ -157,8 +137,23 @@ const FacilityDetailsPage = async ({ params }) => {
                             {data.description}
                         </p>
                     </div>
+                    <div>
+                        <h2 className="text-xl font-semibold text-slate-800 dark:text-white mb-4">
+                            Available Time Slots
+                        </h2>
 
-                    {/* Booking Section */}
+                        <div className="flex flex-wrap gap-3">
+                            {data.availableTimeSlots?.map((slot, index) => (
+                                <div
+                                    key={index}
+                                    className="px-4 py-2 rounded-xl bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 text-sm font-medium shadow-md"
+                                >
+                                    {slot}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
                     <div className="mt-10 border-t pt-8">
                         <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-6">
                             Book This Facility
@@ -177,7 +172,7 @@ const FacilityDetailsPage = async ({ params }) => {
                                 />
                             </div>
 
-                            {/* Booking Date */}
+
                             <div>
                                 <label className="text-sm font-semibold">Booking Date</label>
                                 <input
@@ -188,33 +183,35 @@ const FacilityDetailsPage = async ({ params }) => {
                                 />
                             </div>
 
-                            {/* Time Slot */}
                             <div>
-                                <label className="text-sm font-semibold">Rent Houre</label> 
-                                    
-                                    <input
-                                        type="number"
-                                        name="hours"
-                                        min="1"
+                                <label className="text-sm font-semibold">Rent Houre</label>
 
-                                        className="w-full mt-2 px-4 py-3 rounded-xl bgtransparent backdrop-blur-[5px] shadow-md dark:shadow-white/15 shadow-black/15"
-                                        required
-                                    /> 
-                            </div>
-
-                            {/* Hours */}
-                            <div>
-                                <label className="text-sm font-semibold">Hours</label>
                                 <input
                                     type="number"
                                     name="hours"
-                                    min="1"
+                                    min="1"  
                                     className="w-full mt-2 px-4 py-3 rounded-xl bgtransparent backdrop-blur-[5px] shadow-md dark:shadow-white/15 shadow-black/15"
                                     required
                                 />
                             </div>
+                            <div>
+                                <label className="text-sm font-semibold">Select Time Slot</label>
 
-                            {/* Total Price (readonly UI only) */}
+                                <select
+                                    name="timeSlot"
+                                    className="w-full mt-2 px-4 py-3 rounded-xl bgtransparent backdrop-blur-[5px] shadow-md dark:shadow-white/15 shadow-black/15"
+                                    required
+                                >
+                                    <option value="">Select Time Slot</option>
+
+                                    {data.availableTimeSlots?.map((slot, index) => (
+                                        <option key={index} value={slot}>
+                                            {slot}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div> 
+
                             <div>
                                 <label className="text-sm font-semibold">Price Per Hour</label>
                                 <input
@@ -224,8 +221,6 @@ const FacilityDetailsPage = async ({ params }) => {
                                     className="w-full mt-2 px-4 py-3 rounded-xl bgtransparent backdrop-blur-[5px] shadow-md dark:shadow-white/15 shadow-black/15"
                                 />
                             </div>
-
-                            {/* Submit */}
                             <div className="md:col-span-2">
                                 <button
                                     type="submit"

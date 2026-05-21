@@ -14,21 +14,26 @@ export default function SportsFacilityForm() {
     console.log("Facilities page", session?.user);
 
 
-    // {
-    // "name": "Md Mohibur Rahman Monir",
-    // "email": "mdmohiburrahmanmanik1@gmail.com",
-    // "emailVerified": false,
-    // "image": "https://i.ibb.co.com/N2J12k6j/Gemini-Generated-Image-c3otzzc3otzzc3ot.png",
-    // "createdAt": "2026-05-19T07:47:09.134Z",
-    // "updatedAt": "2026-05-19T07:47:09.134Z",
-    // "id": "6a0c157d443546078570159a"
-    // }
+    //     const data = {
+    //     facilityName: formData.get("facilityName"),
+    //     facilityType: formData.get("facilityType"),
+    //     image: formData.get("image"),
+    //     location: formData.get("location"),
+    //     pricePerHour: Number(formData.get("pricePerHour")),
+    //     capacity: Number(formData.get("capacity")),
+    //     availableTimeSlots: Array.from(formData.getAll("availableTimeSlots")),
+    //     description: formData.get("description"),
+    //     ownerEmail: user_email,
+    // };
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
+        data.availableTimeSlots = Array(data.availableTimeSlots) 
 
         data.price = parseInt(data.pricePerHour);
         data.capacity = parseInt(data.capacity);
@@ -38,12 +43,10 @@ export default function SportsFacilityForm() {
         const { data: sessionData, error } = await authClient.token()
 
 
-        const postData = await fetch('http://localhost:5000/addfacilities', {
+        const postData = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/addfacilities`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${sessionData?.token}`,
-
+                'Content-Type': 'application/json', 
             },
             body: JSON.stringify(data)
         });
@@ -55,6 +58,8 @@ export default function SportsFacilityForm() {
             toast.error(result.message || 'Failed to add facility');
             router.push('/');
         }
+        console.log(result);
+        
     };
 
 
@@ -152,17 +157,23 @@ export default function SportsFacilityForm() {
                                 required
                             />
                         </div>
-                    </div>
+                    </div> 
 
-                    {/* Slots */}
                     <div>
                         <label className="font-semibold text-sm">Available Time Slots</label>
-                        <input
+                        <select
                             name="availableTimeSlots"
-                            placeholder="06:00 AM - 11:00 PM"
                             className="shadow-lg dark:shadow-white/15 shadow-black/15 w-full mt-2 px-4 py-3 rounded-xl bg-white dark:bg-slate-900"
                             required
-                        />
+                        >
+                            <option value="">Select </option>
+                            <option value="06:00-08:00">06:00-08:00</option>
+                            <option value="08:00-10:00">08:00-10:00</option>
+                            <option value="10:00-12:00">10:00-12:00</option>
+                            <option value="12:00-14:00">12:00-14:00</option>
+                            <option value="16:00-18:00">16:00-18:00</option>
+                            <option value="18:00-22:00">18:00-22:00</option>
+                        </select>
                     </div>
 
                     {/* Description */}
@@ -183,7 +194,8 @@ export default function SportsFacilityForm() {
                         <input
                             name="ownerEmail"
                             disabled
-                            defaultValue={user_email}
+                            // defaultValue={user_email}
+                            defaultValue={'afasf'}
                             type="email"
                             placeholder="owner@email.com"
                             className="shadow-lg dark:shadow-white/15 shadow-black/15 w-full mt-2 px-4 py-3 rounded-xl bg-white dark:bg-slate-900"

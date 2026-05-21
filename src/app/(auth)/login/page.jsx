@@ -53,10 +53,7 @@ export default function LoginPage() {
  
     }
     const handelLogin = async e => {
-        e.preventDefault()
-
-        
-        
+        e.preventDefault()  
         const dataRes = new FormData(e.currentTarget);
         const LoginData = Object.fromEntries(dataRes.entries())
         

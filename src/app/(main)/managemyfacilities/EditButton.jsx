@@ -22,10 +22,10 @@ const EditButton = ({ token, id }) => {
 
         console.log(data);
 
-        const postData = await fetch(`http://localhost:5000/managemyfacilities/${id}`, {
+        const postData = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/managemyfacilities/${id}`, {
             method: 'PATCH',
             headers: {
-                'Authorization': `Bearer ${token}`,
+                // 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json' 
             },
             body: JSON.stringify(data)

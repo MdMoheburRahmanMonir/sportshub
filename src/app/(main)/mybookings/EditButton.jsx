@@ -15,11 +15,11 @@ const EditButton = ({ token, booking,Path }) => {
         console.log(forDataTaken);
 
 
-        const resData = await fetch(`http://localhost:5000/${Path}/${booking}`, {
+        const resData = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/${Path}/${booking}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                'Authorization': `Bearer ${token}`,
+                // 'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify(forDataTaken),
         });

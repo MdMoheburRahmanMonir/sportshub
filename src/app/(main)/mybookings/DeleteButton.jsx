@@ -8,12 +8,12 @@ const DeleteButton = ({ facilityId, token ,Path }) => {
 
     const handelDelete = async () => {
         const res = await fetch(
-            `http://localhost:5000/${Path}/${facilityId}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/${Path}/${facilityId}`,
             {
                 method: "DELETE",
-                headers: {
-                    'Authorization': `Bearer ${token}`, 
-                }
+                // headers: {
+                //     'Authorization': `Bearer ${token}`, 
+                // }
             }
         );
         if (res.ok) { 

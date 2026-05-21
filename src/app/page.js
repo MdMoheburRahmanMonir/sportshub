@@ -7,7 +7,7 @@ import EditButton from "./(main)/managemyfacilities/EditButton";
 
 
 export default async function Home() {
-  const response = await fetch("http://localhost:5000/",);
+  const response = await fetch(`${process.env.SERVER_URL}`,);
   const facilities = await response.json(); 
   return (
     <div > 

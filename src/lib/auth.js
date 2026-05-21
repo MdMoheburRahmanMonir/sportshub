@@ -3,7 +3,7 @@ import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { MongoClient } from "mongodb";
 import { jwt } from "better-auth/plugins"
 
-const client = new MongoClient("mongodb+srv://sportshub:WfGfAKEwd069bRIG@cluster0.ifhtaoi.mongodb.net/?appName=Cluster0");
+const client = new MongoClient(process.env.MONGO_URI);
 const db = client.db('sportshub');
 
 export const auth = betterAuth({

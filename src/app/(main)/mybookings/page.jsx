@@ -22,9 +22,11 @@ const MyBookingPage = async () => {
         redirect("/login");
     }
 
+    console.log(userId);
+    
     const res = await fetch(
-        `http://localhost:5000/mybookings/${userId}`,
-        { cache: "no-store" }
+        `${process.env.SERVER_URL}/mybookings/${userId}`,
+        { cache: "no-store"}
     );
 
     const Path = 'mybookings';
@@ -48,7 +50,7 @@ const MyBookingPage = async () => {
                     {data.map((booking) => (
                         <div
                             key={booking._id}
-                            className="shadow-lg rounded-2xl p-6"
+                            className="shadow-lg rounded-2xl p-6 "
                         >
                             <h2 className="text-2xl font-bold text-green-700">
                                 {booking.facility_name}
@@ -71,12 +73,12 @@ const MyBookingPage = async () => {
                             </div>
 
                             {/* client component buttons */}
-                             <div className="mt-5 flex gap-2">
+                            <div className="mt-5 flex gap-2">
                                 <EditButton
                                     token={token}
                                     booking={booking.facility_id}
                                     Path={Path}
-                                    />
+                                />
                                 <DeleteButton
                                     token={token}
                                     facilityId={booking.facility_id}
