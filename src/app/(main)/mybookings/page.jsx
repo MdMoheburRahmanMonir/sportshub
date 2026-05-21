@@ -16,6 +16,7 @@ const MyBookingPage = async () => {
     });
 
     const userId = session?.user?.id;
+    console.log(session?.user?.email);
 
     if (!userId) {
         redirect("/login");
@@ -26,14 +27,18 @@ const MyBookingPage = async () => {
         { cache: "no-store" }
     );
 
+    const Path = 'mybookings';
+
     const data = await res.json();
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-10">
-            <h1 className="text-4xl font-bold mb-8 text-center">
+            <h1 className="text-4xl font-bold mb-1 text-center">
                 My Bookings
             </h1>
-
+            <p className="text-4xl font-bold mb-8 text-center">
+                Your total amount is {data.reduce((sum, item) => sum + item.total_price, 0)}৳
+            </p>
             {data.length === 0 ? (
                 <div className="text-center text-xl font-medium mb-40">
                     No Booking Found
@@ -66,11 +71,16 @@ const MyBookingPage = async () => {
                             </div>
 
                             {/* client component buttons */}
-                            <div className="mt-5 flex gap-2">
-                                <EditButton />
+                             <div className="mt-5 flex gap-2">
+                                <EditButton
+                                    token={token}
+                                    booking={booking.facility_id}
+                                    Path={Path}
+                                    />
                                 <DeleteButton
                                     token={token}
                                     facilityId={booking.facility_id}
+                                    Path={Path}
                                 />
                             </div>
                         </div>

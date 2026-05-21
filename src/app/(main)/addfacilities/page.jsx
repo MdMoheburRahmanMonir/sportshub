@@ -1,13 +1,13 @@
 'use client';
 import { FaBuilding } from 'react-icons/fa';
-import { authClient } from "@/lib/auth-client" 
+import { authClient } from "@/lib/auth-client"
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
 export default function SportsFacilityForm() {
 
-    const { data: session } = authClient.useSession()
-    const userEmail = session?.user?.email || 'owner@email.com';
+    const { data: session } = authClient.useSession() 
+    const user_email = session?.user?.email || 'owner@email.com';
 
     const router = useRouter();
 
@@ -19,7 +19,7 @@ export default function SportsFacilityForm() {
 
         data.price = parseInt(data.pricePerHour);
         data.capacity = parseInt(data.capacity);
-        data.email = userEmail;
+        data.email = user_email;
 
         const { data: sessionData, error } = await authClient.token()
 
@@ -35,12 +35,15 @@ export default function SportsFacilityForm() {
         });
         const result = await postData.json();
         if (postData.ok) {
-            router.push('/addfacilities');
+            router.push('/managemyfacilities');
+            toast.success('Your Post successfully done.')
         } else {
             toast.error(result.message || 'Failed to add facility');
+            router.push('/');
         } 
-
     };
+
+
 
     return (
         <div className="relative flex items-center justify-center p-6">
@@ -166,7 +169,7 @@ export default function SportsFacilityForm() {
                         <input
                             name="ownerEmail"
                             disabled
-                            defaultValue={userEmail}
+                            defaultValue={user_email}
                             type="email"
                             placeholder="owner@email.com"
                             className="shadow-lg dark:shadow-white/15 shadow-black/15 w-full mt-2 px-4 py-3 rounded-xl bg-white dark:bg-slate-900"

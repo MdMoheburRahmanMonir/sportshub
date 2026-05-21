@@ -43,7 +43,7 @@ const ContentSection = ({ facilities }) => {
                                     {item.description}
                                 </p>
 
-                                <Link href={`/facility/${item._id}`}>
+                                <Link href={`/facilities/${item._id}`}>
                                     <button className="mt-4 px-4 py-2 w-full bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm">
                                         View Details
                                     </button>

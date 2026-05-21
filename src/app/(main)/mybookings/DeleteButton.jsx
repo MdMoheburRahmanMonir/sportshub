@@ -2,12 +2,12 @@
 
 import { AlertDialog, Button } from "@heroui/react";
 import { LuTrash2 } from "react-icons/lu";
-
-const DeleteButton = ({ facilityId, token }) => {
+import { MdDeleteForever } from "react-icons/md";
+const DeleteButton = ({ facilityId, token ,Path}) => {
 
     const handelDelete = async () => {
         const res = await fetch(
-            `http://localhost:5000/mybookings/${facilityId}`,
+            `http://localhost:5000/${Path}/${facilityId}`,
             {
                 method: "DELETE",
                 headers: {
@@ -15,14 +15,15 @@ const DeleteButton = ({ facilityId, token }) => {
                 }
             }
         );
-
-        const result = await res.json();
-        console.log(result);
+        if (res.ok) { 
+            window.location.reload();
+        } 
+        const result = await res.json(); 
     };
 
     return (
         <AlertDialog>
-            <Button variant="danger">Delete Project</Button>
+            <Button variant="danger"><MdDeleteForever /> Delete Project</Button>
             <AlertDialog.Backdrop>
                 <AlertDialog.Container>
                     <AlertDialog.Dialog className="sm:max-w-[400px]">

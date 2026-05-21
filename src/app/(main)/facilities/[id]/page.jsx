@@ -11,35 +11,37 @@ const FacilityDetailsPage = async ({ params }) => {
     });
 
     const userID = session?.user?.id;
-    console.log(userID);
+
+    if (!userID) {
+        redirect("/login");
+    }
 
 
-
-    const { id } = await params;
+    const { id } = params;
+    console.log(userID, id);
     const { token } = await auth.api.getToken({
         headers: await headers()
     });
-
+    const sendToken = token || '';
     console.log(token);
 
 
-    const res = await fetch(`http://localhost:5000/facility/${id}`, {
+    const res = await fetch(`http://localhost:5000/facilities/${id}`, {
         cache: 'no-store',
         headers: {
-            'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${sendToken}`,
         },
     });
 
     const data = await res.json();
 
     const handelSubmit = async (formData) => {
-        "use server";
-
+        "use server"; 
         const bookingData = {
             facility_id: data._id,
             facility_name: data.facilityName,
-            price_per_hour: data.pricePerHour,
-            total_price: formData.get("hours") * data.pricePerHour,
+            price_per_hour: data.price,
+            total_price: formData.get("hours") * data.price,
             booking_date: formData.get("bookingDate"),
             time_slot: formData.get("timeSlot"),
             hours: formData.get("hours"),
@@ -66,6 +68,19 @@ const FacilityDetailsPage = async ({ params }) => {
         console.log(bookingData, result);
     };
 
+    const availableOptions = [
+        "06:00 AM - 07:00 AM",
+        "07:00 AM - 08:00 AM",
+        "08:00 AM - 09:00 AM",
+        "09:00 AM - 10:00 AM", 
+        "12:00 PM - 01:00 PM",
+        "01:00 PM - 02:00 PM",
+        "02:00 PM - 03:00 PM",  
+        "06:00 PM - 07:00 PM",
+        "07:00 PM - 08:00 PM",
+        "08:00 PM - 09:00 PM",
+        "09:00 PM - 10:00 PM",
+    ];
     return (
         <div className="w-11/12 mx-auto py-10 flex justify-center">
             <div className=" w-full bg-transparent backdrop-blur-[6px] shadow dark:shadow-white/20 shadow-black/20 rounded-3xl shadow-xl overflow-hidden">
@@ -150,16 +165,15 @@ const FacilityDetailsPage = async ({ params }) => {
                             Available Time Slots
                         </h2>
 
-                        <div className="flex flex-wrap gap-3">
-                            {data.availableTimeSlots.map((slot, i) => (
-                                <span
-                                    key={i}
-                                    className="px-4 py-2 rounded-full bg-blue-50 dark:bg-slate-800 text-blue-600 dark:text-blue-300 text-sm font-medium"
-                                >
+                        <select name="timeSlot" required>
+                            <option value="">Select Slot</option>
+
+                            {slots.map((slot, i) => (
+                                <option key={i} value={slot}>
                                     {slot}
-                                </span>
+                                </option>
                             ))}
-                        </div>
+                        </select>
                     </div>
                     {/* Booking Section */}
                     <div className="mt-10 border-t pt-8">
