@@ -6,10 +6,23 @@ import { toast } from 'react-toastify';
 
 export default function SportsFacilityForm() {
 
-    const { data: session } = authClient.useSession() 
+    const { data: session } = authClient.useSession()
+    const user_id = session?.user?.id || 'owner@email.com';
     const user_email = session?.user?.email || 'owner@email.com';
 
     const router = useRouter();
+    console.log("Facilities page", session?.user);
+
+
+    // {
+    // "name": "Md Mohibur Rahman Monir",
+    // "email": "mdmohiburrahmanmanik1@gmail.com",
+    // "emailVerified": false,
+    // "image": "https://i.ibb.co.com/N2J12k6j/Gemini-Generated-Image-c3otzzc3otzzc3ot.png",
+    // "createdAt": "2026-05-19T07:47:09.134Z",
+    // "updatedAt": "2026-05-19T07:47:09.134Z",
+    // "id": "6a0c157d443546078570159a"
+    // }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,7 +32,8 @@ export default function SportsFacilityForm() {
 
         data.price = parseInt(data.pricePerHour);
         data.capacity = parseInt(data.capacity);
-        data.email = user_email;
+        data.user_id = user_id;
+        data.user_email = user_email;
 
         const { data: sessionData, error } = await authClient.token()
 
@@ -40,7 +54,7 @@ export default function SportsFacilityForm() {
         } else {
             toast.error(result.message || 'Failed to add facility');
             router.push('/');
-        } 
+        }
     };
 
 

@@ -46,7 +46,7 @@ const EditButton = ({ token, booking,Path }) => {
 
             {/* Modal */}
             {open && (
-                <div className="fixed inset-0 bg-black/15 dark:bg-white/15  rounded-lg backdrop-blur-sm flex items-center justify-center z-50">
+                <div className="fixed inset-0 bg-black/30 dark:bg-white/30  rounded-lg backdrop-blur-sm flex items-center justify-center z-50">
                     <div className="
                                 w-[92%] max-w-lg 
                                 p-6 rounded-2xl 

@@ -1,8 +1,11 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { FaEdit, FaTrash, FaMapMarkerAlt, FaUsers, FaDollarSign } from "react-icons/fa";
-import EditButton from "../mybookings/EditButton";
 import DeleteButton from "../mybookings/DeleteButton";
+
+import { Envelope } from "@gravity-ui/icons";
+import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
+import EditButton from "./EditButton";
 
 export default async function ManageMyFacilitiesPage() {
 
@@ -95,14 +98,9 @@ export default async function ManageMyFacilitiesPage() {
                             <div className="mt-5 flex gap-2">
                                 <EditButton
                                     token={token}
-                                    booking={userEmail}
-                                    Path={Path}
-                                />
-                                <DeleteButton
-                                    token={token}
-                                    facilityId={userEmail}
-                                    Path={Path}
-                                />
+                                    id={item._id}
+                                /> 
+                                <DeleteButton facilityId={item._id} token={token}  Path={Path}  />
                             </div>
 
                         </div>

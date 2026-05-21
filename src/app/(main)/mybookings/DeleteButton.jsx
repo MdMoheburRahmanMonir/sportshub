@@ -3,7 +3,8 @@
 import { AlertDialog, Button } from "@heroui/react";
 import { LuTrash2 } from "react-icons/lu";
 import { MdDeleteForever } from "react-icons/md";
-const DeleteButton = ({ facilityId, token ,Path}) => {
+import { toast } from "react-toastify";
+const DeleteButton = ({ facilityId, token ,Path }) => {
 
     const handelDelete = async () => {
         const res = await fetch(
@@ -17,6 +18,7 @@ const DeleteButton = ({ facilityId, token ,Path}) => {
         );
         if (res.ok) { 
             window.location.reload();
+            toast('You are success')
         } 
         const result = await res.json(); 
     };

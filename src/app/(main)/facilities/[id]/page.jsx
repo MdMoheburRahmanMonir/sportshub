@@ -17,26 +17,25 @@ const FacilityDetailsPage = async ({ params }) => {
     }
 
 
-    const { id } = params;
+    const { id } = await params;
     console.log(userID, id);
     const { token } = await auth.api.getToken({
         headers: await headers()
     });
-    const sendToken = token || '';
-    console.log(token);
+
 
 
     const res = await fetch(`http://localhost:5000/facilities/${id}`, {
         cache: 'no-store',
         headers: {
-            'Authorization': `Bearer ${sendToken}`,
+            'Authorization': `Bearer ${token}`,
         },
     });
 
     const data = await res.json();
 
     const handelSubmit = async (formData) => {
-        "use server"; 
+        "use server";
         const bookingData = {
             facility_id: data._id,
             facility_name: data.facilityName,
@@ -72,10 +71,10 @@ const FacilityDetailsPage = async ({ params }) => {
         "06:00 AM - 07:00 AM",
         "07:00 AM - 08:00 AM",
         "08:00 AM - 09:00 AM",
-        "09:00 AM - 10:00 AM", 
+        "09:00 AM - 10:00 AM",
         "12:00 PM - 01:00 PM",
         "01:00 PM - 02:00 PM",
-        "02:00 PM - 03:00 PM",  
+        "02:00 PM - 03:00 PM",
         "06:00 PM - 07:00 PM",
         "07:00 PM - 08:00 PM",
         "08:00 PM - 09:00 PM",
@@ -159,22 +158,6 @@ const FacilityDetailsPage = async ({ params }) => {
                         </p>
                     </div>
 
-                    {/* Time Slots */}
-                    <div>
-                        <h2 className="text-xl font-semibold text-slate-800 dark:text-white mb-3">
-                            Available Time Slots
-                        </h2>
-
-                        <select name="timeSlot" required>
-                            <option value="">Select Slot</option>
-
-                            {slots.map((slot, i) => (
-                                <option key={i} value={slot}>
-                                    {slot}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
                     {/* Booking Section */}
                     <div className="mt-10 border-t pt-8">
                         <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-6">
@@ -207,19 +190,16 @@ const FacilityDetailsPage = async ({ params }) => {
 
                             {/* Time Slot */}
                             <div>
-                                <label className="text-sm font-semibold">Time Slot</label>
-                                <select
-                                    name="timeSlot"
-                                    className="w-full mt-2 px-4 py-3 rounded-xl bgtransparent backdrop-blur-[5px] shadow-md dark:shadow-white/15 shadow-black/15"
-                                    required
-                                >
-                                    <option value="">Select Slot</option>
-                                    {data.availableTimeSlots.map((slot, i) => (
-                                        <option key={i} value={slot}>
-                                            {slot}
-                                        </option>
-                                    ))}
-                                </select>
+                                <label className="text-sm font-semibold">Rent Houre</label> 
+                                    
+                                    <input
+                                        type="number"
+                                        name="hours"
+                                        min="1"
+
+                                        className="w-full mt-2 px-4 py-3 rounded-xl bgtransparent backdrop-blur-[5px] shadow-md dark:shadow-white/15 shadow-black/15"
+                                        required
+                                    /> 
                             </div>
 
                             {/* Hours */}
