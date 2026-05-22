@@ -182,14 +182,14 @@ export default async function SportsFacilityForm() {
                         />
                     </div>
 
-                    {/* Owner Email */}
+                    
                     <div className="group relative">
                         <label className="font-semibold text-sm">Owner Email</label>
                         <input
                             name="ownerEmail"
                             disabled
-                            // defaultValue={user_email}
-                            defaultValue={'afasf'}
+                            defaultValue={user_email}
+                            // defaultValue={'afasf'}
                             type="email"
                             placeholder="owner@email.com"
                             className="shadow-lg dark:shadow-white/15 shadow-black/15 w-full mt-2 px-4 py-3 rounded-xl bg-white dark:bg-slate-900"
