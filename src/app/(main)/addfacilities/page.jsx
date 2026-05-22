@@ -4,6 +4,12 @@ import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
+export const metadata = {
+    title: "Add Facilities",
+    description: "Here you can post your sports related any rental space",
+};
+
+
 export default async function SportsFacilityForm() {
 
     const session = await auth.api.getSession({
@@ -17,9 +23,9 @@ export default async function SportsFacilityForm() {
 
     const handleSubmit = async (formData) => {
         "use server"
- 
+
         const data = Object.fromEntries(formData.entries());
-        console.log('Form data is : -',data)
+        console.log('Form data is : -', data)
         data.availableTimeSlots = Array(data.availableTimeSlots)
 
         data.price = data.pricePerHour;
@@ -182,7 +188,7 @@ export default async function SportsFacilityForm() {
                         />
                     </div>
 
-                    
+
                     <div className="group relative">
                         <label className="font-semibold text-sm">Owner Email</label>
                         <input
