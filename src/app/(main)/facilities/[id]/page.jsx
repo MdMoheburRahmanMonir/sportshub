@@ -1,4 +1,4 @@
- 
+
 import { auth } from '@/lib/auth';
 import { logger } from 'better-auth';
 import { headers } from 'next/headers';
@@ -11,6 +11,11 @@ const FacilityDetailsPage = async ({ params }) => {
         headers: await headers()
     });
 
+    const { token } = await auth.api.getToken({
+        headers: await headers()
+    });
+
+
     const userID = session?.user?.id;
 
     // if (!userID) {
@@ -18,12 +23,16 @@ const FacilityDetailsPage = async ({ params }) => {
     // }
 
 
-    const { id } = await params; 
+    const { id } = await params;
     // const userID = "hello"
 
-    const res = await fetch(`${process.env.SERVER_URL}/facilities/${id}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${id}`, {
+        headers: {
+            'authorization': `Bearer ${token}`,
+        }
+    });
 
-    const data = await res.json(); 
+    const data = await res.json();
 
     const handelSubmit = async (formData) => {
         "use server";
@@ -31,7 +40,7 @@ const FacilityDetailsPage = async ({ params }) => {
         if (!userID) {
             redirect("/login");
         }
-        const bookingData = { 
+        const bookingData = {
             facility_id: data._id,
             facility_name: data.facilityName,
             facilityType: data.facilityType,
@@ -44,13 +53,13 @@ const FacilityDetailsPage = async ({ params }) => {
             createdAt: new Date(),
             user_id: userID || "User Not Login",
         };
- 
 
-        const response = await fetch(`${process.env.SERVER_URL}/facilities`, {
+
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // 'authorization': `Bearer ${token}`,
+                'authorization': `Bearer ${token}`,
             },
             body: JSON.stringify(bookingData),
         });
@@ -189,7 +198,7 @@ const FacilityDetailsPage = async ({ params }) => {
                                 <input
                                     type="number"
                                     name="hours"
-                                    min="1"  
+                                    min="1"
                                     className="w-full mt-2 px-4 py-3 rounded-xl bgtransparent backdrop-blur-[5px] shadow-md dark:shadow-white/15 shadow-black/15"
                                     required
                                 />
@@ -210,7 +219,7 @@ const FacilityDetailsPage = async ({ params }) => {
                                         </option>
                                     ))}
                                 </select>
-                            </div> 
+                            </div>
 
                             <div>
                                 <label className="text-sm font-semibold">Price Per Hour</label>

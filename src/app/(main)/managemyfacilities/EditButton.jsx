@@ -68,7 +68,7 @@ const EditButton = ({ token, id, fsName}) => {
                                             <input
                                                 name="facilityName"
                                                 placeholder={`${fsName || "Football"}`}
-                                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-white/7 shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
                                             />
                                         </div>
 
@@ -77,7 +77,7 @@ const EditButton = ({ token, id, fsName}) => {
                                             <label className="text-sm text-white font-semibold">Facility Type</label>
                                             <select
                                                 name="facilityType"
-                                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-white/7 shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
                                             >
                                                 <option value="" className="text-black">Select Type</option>
                                                 <option value="football" className="text-black">Football</option>
@@ -92,7 +92,7 @@ const EditButton = ({ token, id, fsName}) => {
                                         <input
                                             name="image"
                                             placeholder="Image URL"
-                                            className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                                            className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-white/7 shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
                                         />
 
                                         {/* Location */}
@@ -100,7 +100,7 @@ const EditButton = ({ token, id, fsName}) => {
                                             name="location"
                                             placeholder="Location"
                                             // className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
-                                            className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                                            className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-white/7 shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
                                         />
 
                                         {/* GRID */}
@@ -110,7 +110,7 @@ const EditButton = ({ token, id, fsName}) => {
                                                 name="pricePerHour"
                                                 type="number"
                                                 placeholder="Price per hour"
-                                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-white/7 shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
                                                 // className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
                                             />
 
@@ -118,7 +118,7 @@ const EditButton = ({ token, id, fsName}) => {
                                                 name="capacity"
                                                 type="number"
                                                 placeholder="Capacity"
-                                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-white/7 shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
                                                 // className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
                                             />
                                         </div>
@@ -127,7 +127,7 @@ const EditButton = ({ token, id, fsName}) => {
                                         <input
                                             name="availableTimeSlots"
                                             placeholder="Time Slots"
-                                            className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                                            className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-white/7 shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
                                             // className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
                                         />
 
@@ -136,7 +136,7 @@ const EditButton = ({ token, id, fsName}) => {
                                             name="description"
                                             rows={4}
                                             placeholder="Description"
-                                            className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                                            className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-white/7 shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
                                             // className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
                                         />
 
@@ -145,7 +145,7 @@ const EditButton = ({ token, id, fsName}) => {
                                             name="ownerEmail"
                                             readOnly
                                             placeholder="Email"
-                                            className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                                            className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-white/7 shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
                                             // className="w-full px-4 py-3 rounded-xl text-white bg-white/5"
                                         />
 

@@ -8,7 +8,7 @@ const BookingPage = async ({ searchParams }) => {
 
 
     const response = await fetch(
-        `${process.env.SERVER_URL}`
+        `${process.env.NEXT_PUBLIC_SERVER_URL}`
     );
     const facilities = await response.json();
 

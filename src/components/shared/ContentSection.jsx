@@ -6,44 +6,45 @@ const ContentSection = ({ facilities }) => {
 
     return (
 
+        <div className='w-11/12 max-w-7xl mx-auto'>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {facilities?.map((item, i) => (
+                    <div
+                        key={i}
+                        className="shadow-lg transition-all duration-500 ease-out hover:shadow-xl shadow-black/20 dark:shadow-white/20 bg-transparent backdrop-blur-[5px] hover:scale-105 hover:transition-all hover:duration-300 rounded-2xl overflow-hidden"
+                    >
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {facilities?.map((item, i) => (
-                <div
-                    key={i}
-                    className="shadow-lg transition-all duration-500 ease-out hover:shadow-xl shadow-black/20 dark:shadow-white/20 bg-transparent backdrop-blur-[5px] hover:scale-105 hover:transition-all hover:duration-300 rounded-2xl overflow-hidden"
-                >
+                        <img
+                            src={item.image}
+                            alt={item.facilityName}
+                            className="h-56 w-full object-cover"
+                        />
+                        <div className="p-5">
+                            <h3 className="text-xl font-bold">
+                                {item.facilityName}
+                            </h3>
 
-                    <img
-                        src={item.image}
-                        alt={item.facilityName}
-                        className="h-56 w-full object-cover"
-                    />
-                    <div className="p-5">
-                        <h3 className="text-xl font-bold">
-                            {item.facilityName}
-                        </h3>
+                            <p className="text-black/80 dark:text-white/80 text-sm mt-1">
+                                📍 {item.location}
+                            </p>
 
-                        <p className="text-black/80 dark:text-white/80 text-sm mt-1">
-                            📍 {item.location}
-                        </p>
+                            <p className="text-blue-500 font-bold mt-2">
+                                ৳{item.pricePerHour}/hour
+                            </p>
 
-                        <p className="text-blue-500 font-bold mt-2">
-                            ৳{item.pricePerHour}/hour
-                        </p>
+                            <p className="text-black/80 dark:text-white/80 text-sm mt-3 line-clamp-2">
+                                {item.description}
+                            </p>
 
-                        <p className="text-black/80 dark:text-white/80 text-sm mt-3 line-clamp-2">
-                            {item.description}
-                        </p>
-
-                        <Link href={`/facilities/${item._id}`}>
-                            <button className="mt-4 px-4 py-2 w-full bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm">
-                                View Details
-                            </button>
-                        </Link>
+                            <Link href={`/facilities/${item._id}`}>
+                                <button className="mt-4 px-4 py-2 w-full bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm">
+                                    View Details
+                                </button>
+                            </Link>
+                        </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     );
 };

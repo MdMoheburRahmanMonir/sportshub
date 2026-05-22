@@ -9,7 +9,7 @@ export function CustomTrigger() {
 
     const router = useRouter();
 
-    const { data: session } = authClient.useSession() 
+    const { data: session } = authClient.useSession()
 
     const handelSignOut = async e => {
         await authClient.signOut();
@@ -50,23 +50,27 @@ export function CustomTrigger() {
                 <Dropdown.Menu className="hover:border-none">
 
                     <Dropdown.Item className="hover:bg-white/30 text-black transition-all duration-100 delay-100 dark:text-white" id="profile" textValue="Profile">
-                        <Link href={'/profile/mybookings'}>
+                        <Link href={'/profile'}>
                             <div className=" w-full flex items-center gap-2">
-                                <Label>Profile</Label> 
+                                <Label>Profile</Label>
                             </div>
                         </Link>
                     </Dropdown.Item>
                     <Dropdown.Item className="hover:bg-white/30 text-black transition-all duration-100 delay-100 dark:text-white" id="settings" textValue="Settings">
-                        <div className="flex w-full items-center justify-between gap-2">
-                            <Label>Settings</Label>
-                            <Gear className="size-3.5  " />
-                        </div>
+                        <Link href={'/profile/edit-profile'}>
+                            <div className="flex w-full items-center justify-between gap-2">
+                                <Label>Edit Profile</Label>
+                                <Gear className="size-3.5  " />
+                            </div>
+                        </Link>
                     </Dropdown.Item>
                     <Dropdown.Item className="hover:bg-white/30 text-black transition-all duration-100 delay-100 dark:text-white" id="new-project" textValue="New project">
-                        <div className="flex w-full items-center justify-between gap-2">
-                            <Label>Create Team</Label>
-                            <Persons className="size-3.5  " />
-                        </div>
+                        <Link href={'/profile/feedback'}>
+                            <div className="flex w-full items-center justify-between gap-2">
+                                <Label>Feedback</Label>
+                                <Persons className="size-3.5  " />
+                            </div>
+                        </Link>
                     </Dropdown.Item>
                     <Dropdown.Item
                         onClick={handelSignOut} className="text-red-400 transition-all duration-100 delay-100 hover:text-white/30" id="logout" textValue="Logout" variant="danger">

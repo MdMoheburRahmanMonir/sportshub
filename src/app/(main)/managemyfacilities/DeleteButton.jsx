@@ -4,16 +4,18 @@ import { AlertDialog, Button } from "@heroui/react";
 import { LuTrash2 } from "react-icons/lu";
 import { MdDeleteForever } from "react-icons/md";
 import { toast } from "react-toastify";
-const DeleteButton = ({ Booking_Id, token, Path }) => {
+const DeleteButton = ({ facilityId, token }) => {
+    console.log(facilityId);
+
 
     const handelDelete = async () => {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_SERVER_URL}/${Path}/${Booking_Id}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/managemyfacilities/${facilityId}`,
             {
                 method: "DELETE",
-                // headers: {
-                //     'Authorization': `Bearer ${token}`, 
-                // }
+                headers: {
+                    'authorization': `Bearer ${token}`,
+                }
             }
         );
         if (res.ok) {

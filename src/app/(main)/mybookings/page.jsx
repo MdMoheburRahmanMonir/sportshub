@@ -25,10 +25,10 @@ const MyBookingPage = async () => {
 
 
     const res = await fetch(
-        `${process.env.SERVER_URL}/mybookings/${userId}`, {
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/mybookings/${userId}`, {
         cache: "no-store",
         headers: {
-            'authorization': `${token}`,
+            // 'authorization': `${token}`,
         }
     }
     );
@@ -56,9 +56,9 @@ const MyBookingPage = async () => {
                     {data?.map((booking) => (
                         <div
                             key={booking._id}
-                            className="shadow-lg rounded-2xl p-6 "
+                            className="shadow-lg shadow-black/20 dark:shadow-white/20 rounded-2xl p-6 "
                         >
-                            <h2 className="text-2xl font-bold text-green-700">
+                            <h2 className="text-2xl font-bold text-blue-600">
                                 {booking.facility_name}
                             </h2>
 

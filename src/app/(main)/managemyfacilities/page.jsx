@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-import { FaEdit, FaTrash, FaMapMarkerAlt, FaUsers, FaDollarSign } from "react-icons/fa"; 
+import { FaEdit, FaTrash, FaMapMarkerAlt, FaUsers, FaDollarSign } from "react-icons/fa";
 
 import { Envelope } from "@gravity-ui/icons";
 import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
@@ -16,7 +16,7 @@ export default async function ManageMyFacilitiesPage() {
         headers: await headers()
     });
 
-    console.log(session?.user?.email, token);
+    console.log('seassion is: -',session?.user?.email,"token is :", token);
     const userEmail = session?.user?.email;
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/managemyfacilities/${userEmail}`, {
@@ -27,6 +27,9 @@ export default async function ManageMyFacilitiesPage() {
     const data = await res.json();
 
     const Path = 'managemyfacilities';
+
+    console.log("data is :" , data);
+    
 
     return (
         <div className="w-11/12 mx-auto py-10">
@@ -42,12 +45,12 @@ export default async function ManageMyFacilitiesPage() {
             </div>
 
             {/* Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
 
                 {data.map((item) => (
                     <div
                         key={item._id}
-                        className="bg-transparent backdrop-blur-[8px] rounded-3xl shadow-lg dark:shadow-white/10 shadow-black/10 overflow-hidden hover:scale-[1.02] transition"
+                        className="bg-transparent backdrop-blur-[8px] rounded-3xl  shadow-lg dark:shadow-white/20 shadow-black/20 overflow-hidden hover:scale-[1.02] transition"
                     >
 
                         {/* Image */}
@@ -100,8 +103,13 @@ export default async function ManageMyFacilitiesPage() {
                                     token={token}
                                     id={item._id}
                                     fsName={item.facilityName}
-                                /> 
-                                <DeleteButton facilityId={item._id} token={token}  Path={Path}  />
+                                />
+                                <DeleteButton
+                                    facilityId={item._id}
+                                    token={token}
+                                    Path={Path}
+                                />
+                                {item._id}
                             </div>
 
                         </div>

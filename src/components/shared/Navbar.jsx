@@ -31,7 +31,7 @@ export default function Navbar() {
 
 
     return (
-        <nav className="w-11/12 mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-2 px-6 md:px-12 py-1 justify-between font-sans text-center sticky top-0 z-50">
+        <nav className="w-11/12 max-w-7xl mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-2 px-6 md:px-12 py-1 justify-between font-sans text-center sticky top-0 z-50">
             <div className="flex justify-self-start items-center backdrop-blur-[8px] px-4 rounded-full">
                 <Link href="/" className="flex items-center space-x-2">
                     <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-md">
@@ -45,7 +45,7 @@ export default function Navbar() {
             </div>
 
             <div className="hidden md:hidden lg:flex justify-self-center rounded-full px-4 p-2 backdrop-blur-[8px] dark:bg-white/10 border border-black/2 dark:border-white/20 bg-black/10 shadow-[inset_0_0_2px_1px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0_2px_1px_rgba(255,255,255,0.1)] md:flex items-center space-x-4">
-                {navLinks.slice(0, session?.user ? 6 : 6).map((link) => {
+                {navLinks.slice(0, session?.user ? 6 : 2).map((link) => {
                     const isActive = pathname === link.href;
 
                     return (

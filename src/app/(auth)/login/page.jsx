@@ -72,7 +72,7 @@ export default function LoginPage() {
                 },
                 onError: (ctx) => {
                     // display the error message
-                    toast.error(`OOHH sorry ${ctx.error.massage}`)
+                    toast.error(`User and Password invalid`)
                 },
             }
         );
@@ -95,7 +95,7 @@ export default function LoginPage() {
             <div className="absolute top-0 left-0 w-96 h-96 bg-blue-600/30 blur-3xl rounded-full"></div>
             <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/20 blur-3xl rounded-full"></div>
             <div className="absolute bottom-0 right-100  w-96 h-96 bg-blue-500/20 blur-3xl rounded-full"></div>
-            <div className="rounded-2xl w-full flex flex-col lg:flex-row">
+            <div className="rounded-2xl w-full max-w-7xl mx-auto flex flex-col lg:flex-row">
                 <div className="relative w-full  md:w-[50%] bg-gradient-to-br lg:rounded-2xl md:rounded-2xl rounded-2xl md:rounded-b-none from-black to-blue-600 text-white flex items-center justify-center p-10">
                     <div className="absolute   z-10 ">
                         <Lottie className="hidden md:block lg:block" animationData={olympic} loop={true} style={{ width: 400, height: 400, opacity: 0.3 }} />

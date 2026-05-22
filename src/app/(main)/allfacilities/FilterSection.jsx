@@ -9,7 +9,7 @@ const FilterSection = ({ data }) => {
         const value = e.target.value;
         // console.log(value);
 
-        router.push(`/facilities?facilityType=${value}`);
+        // router.push(`/facilities?facilityType=${value}`);
 
 
 

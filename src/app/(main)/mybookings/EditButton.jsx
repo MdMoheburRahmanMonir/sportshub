@@ -67,21 +67,21 @@ const EditButton = ({ token, booking, Path }) => {
                                 name="booking_date"
                                 type="date"
                                 placeholder="Price per hour"
-                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-white/7 shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
                             // className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
                             />
                             <input
                                 name="time_slot"
                                 type="text"
                                 placeholder="Time Slot"
-                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-white/7 shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
                             // className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
                             />
                             <input
                                 name="hours"
                                 type="number"
                                 placeholder="Hours"
-                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-white/7 shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
                             // className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
                             />
 
