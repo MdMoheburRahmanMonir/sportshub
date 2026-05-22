@@ -146,7 +146,7 @@ export default function LoginPage() {
                                         }}
                                     >
                                         <Label>Email</Label>
-                                        <Input name="email" placeholder="john@example.com" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-white dark:bg-black placeholder:text-black dark:placeholder:text-white`} />
+                                        <Input name="email" placeholder="john@example.com" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-transparent placeholder:text-black dark:placeholder:text-white`} />
                                         <FieldError />
                                     </TextField>
                                 </div>
@@ -176,7 +176,7 @@ export default function LoginPage() {
                                             <p onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-2.5  " >
                                                 {showPassword ? <LuEye /> : <LuEyeClosed size={18} />}
                                             </p>
-                                            <Input name="password" placeholder="Enter your password" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-white dark:bg-black placeholder:text-black dark:placeholder:text-white`} />
+                                            <Input name="password" placeholder="Enter your password" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-transparent placeholder:text-black dark:placeholder:text-white`} />
                                         </div>
                                         <Description className="text-black dark:text-white">Must be at least 8 characters with 1 uppercase and 1 number</Description>
                                         <FieldError />
@@ -194,7 +194,7 @@ export default function LoginPage() {
                                 </div>
 
 
-                                <button type="submit" className="w-full py-2 my-1 rounded-lg bg-blue-600/70 text-black font-medium hover:opacity-90 transition">
+                                <button type="submit" className="w-full text-white py-2 my-1 rounded-lg bg-blue-600/70 text-black font-medium hover:opacity-90 transition">
                                     Login
                                 </button>
                             </form>
@@ -212,7 +212,7 @@ export default function LoginPage() {
                                         type="text"
                                     >
                                         <Label>Name</Label>
-                                        <Input name="name" placeholder="Enter your Name" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-white dark:bg-black placeholder:text-black dark:placeholder:text-white`} />
+                                        <Input name="name" placeholder="Enter your Name" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-transparent placeholder:text-black dark:placeholder:text-white`} />
                                         <FieldError />
                                     </TextField>
                                 </div>
@@ -230,7 +230,7 @@ export default function LoginPage() {
                                         }}
                                     >
                                         <Label>Email</Label>
-                                        <Input name="email" placeholder="john@example.com" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-white dark:bg-black placeholder:text-black dark:placeholder:text-white`} />
+                                        <Input name="email" placeholder="john@example.com" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-transparent placeholder:text-black dark:placeholder:text-white`} />
                                         <FieldError />
                                     </TextField>
                                 </div>
@@ -242,7 +242,7 @@ export default function LoginPage() {
                                         type="text"
                                     >
                                         <Label>ImageUrl</Label>
-                                        <Input name="image" placeholder="Enter your Image Url" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-white dark:bg-black placeholder:text-black dark:placeholder:text-white`} />
+                                        <Input name="image" placeholder="Enter your Image Url" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-transparent placeholder:text-black dark:placeholder:text-white`} />
                                         <FieldError />
                                     </TextField>
                                 </div>
@@ -272,14 +272,14 @@ export default function LoginPage() {
                                             <p onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-2.5  " >
                                                 {showPassword ? <LuEye /> : <LuEyeClosed size={18} />}
                                             </p>
-                                            <Input name="password" placeholder="Enter your password" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-white dark:bg-black placeholder:text-black dark:placeholder:text-white`} />
+                                            <Input name="password" placeholder="Enter your password" className={`w-full shadow shadow-black/20  dark:shadow-white/20 bg-transparent placeholder:text-black dark:placeholder:text-white`} />
                                         </div>
                                         <Description className="text-black  dark:text-white">Must be at least 8 characters with 1 uppercase and 1 number</Description>
                                         <FieldError />
                                     </TextField>
                                 </div>
 
-                                <button type="submit" className="w-full py-2 rounded-lg shadow shadow-black/20 bg-blue-600/70 cursor-pointer text-black dark:text-white font-medium hover:opacity-90 transition">
+                                <button type="submit" className="w-full py-2 rounded-lg text-white shadow shadow-black/20 bg-blue-600/70 cursor-pointer text-black dark:text-white font-medium hover:opacity-90 transition">
                                     Register
                                 </button>
                             </form>

@@ -4,12 +4,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
-
+import { FaEdit } from "react-icons/fa";
 import { Envelope } from "@gravity-ui/icons";
 import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
 
 
-const EditButton = ({ token, id }) => {
+const EditButton = ({ token, id, fsName}) => {
     const [open, setOpen] = useState(false);
     const router = useRouter();
 
@@ -44,31 +44,31 @@ const EditButton = ({ token, id }) => {
     return (
         <>
             <Modal>
-                <Button variant="secondary">Open Contact Form</Button>
-                <Modal.Backdrop>
-                    <Modal.Container placement="auto">
-                        <Modal.Dialog className="sm:max-w-md">
-                            <Modal.CloseTrigger />
+                <Button variant="secondary" className="text-white rounded-lg bg-blue-600">Edit Facilities</Button>
+                <Modal.Backdrop >
+                    <Modal.Container placement="auto" >
+                        <Modal.Dialog className="sm:max-w-md bg-black/70 backdrop-blur-[8px]">
+                            <Modal.CloseTrigger className="text-white" />
                             <Modal.Header>
                                 <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
-                                    <Envelope className="size-5" />
+                                    <FaEdit  className="size-5 text-white bg-black/20" />
                                 </Modal.Icon>
-                                <Modal.Heading>Contact Us</Modal.Heading>
-                                <p className="mt-1.5 text-sm leading-5 text-muted">
-                                    Fill out the form below and we'll get back to you. The modal adapts automatically
-                                    when the keyboard appears on mobile.
+                                <Modal.Heading className="text-white">Update your Data</Modal.Heading>
+                                <p className="mt-1.5 text-sm leading-5 text-muted text-white">
+                                    Let's make better about our Facilities
                                 </p>
                             </Modal.Header>
-                            <Modal.Body className="p-6">
-                                <Surface variant="default">
-                                    <form onSubmit={handleSubmit} className="space-y-6">
+                            <Modal.Body className="scrollbar-none " >
+                                <Surface variant="default" className="bg-transparent">
+                                    <form onSubmit={handleSubmit} className="space-y-6  ">
 
                                         {/* Facility Name */}
                                         <div>
-                                            <label className="text-sm text-white font-semibold">Facility Name</label>
+                                            <label className="text-sm scrollbar-none  text-white font-semibold">Facility Name</label>
                                             <input
                                                 name="facilityName"
-                                                className="w-full mt-2 px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60 focus:outline-none"
+                                                placeholder={`${fsName || "Football"}`}
+                                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
                                             />
                                         </div>
 
@@ -77,7 +77,7 @@ const EditButton = ({ token, id }) => {
                                             <label className="text-sm text-white font-semibold">Facility Type</label>
                                             <select
                                                 name="facilityType"
-                                                className="w-full mt-2 px-4 py-3 rounded-xl text-white bg-white/10"
+                                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
                                             >
                                                 <option value="" className="text-black">Select Type</option>
                                                 <option value="football" className="text-black">Football</option>
@@ -92,14 +92,15 @@ const EditButton = ({ token, id }) => {
                                         <input
                                             name="image"
                                             placeholder="Image URL"
-                                            className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
+                                            className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
                                         />
 
                                         {/* Location */}
                                         <input
                                             name="location"
                                             placeholder="Location"
-                                            className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
+                                            // className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
+                                            className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
                                         />
 
                                         {/* GRID */}
@@ -109,14 +110,16 @@ const EditButton = ({ token, id }) => {
                                                 name="pricePerHour"
                                                 type="number"
                                                 placeholder="Price per hour"
-                                                className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
+                                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                                                // className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
                                             />
 
                                             <input
                                                 name="capacity"
                                                 type="number"
                                                 placeholder="Capacity"
-                                                className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
+                                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                                                // className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
                                             />
                                         </div>
 
@@ -124,7 +127,8 @@ const EditButton = ({ token, id }) => {
                                         <input
                                             name="availableTimeSlots"
                                             placeholder="Time Slots"
-                                            className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
+                                            className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                                            // className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
                                         />
 
                                         {/* Description */}
@@ -132,7 +136,8 @@ const EditButton = ({ token, id }) => {
                                             name="description"
                                             rows={4}
                                             placeholder="Description"
-                                            className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
+                                            className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                                            // className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
                                         />
 
                                         {/* EMAIL */}
@@ -140,16 +145,17 @@ const EditButton = ({ token, id }) => {
                                             name="ownerEmail"
                                             readOnly
                                             placeholder="Email"
-                                            className="w-full px-4 py-3 rounded-xl text-white bg-white/5"
+                                            className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                                            // className="w-full px-4 py-3 rounded-xl text-white bg-white/5"
                                         />
 
                                         {/* BUTTONS */}
                                         <div className="flex gap-4 justify-end pt-4"> 
                                             <Modal.Footer>
-                                                <Button slot="close" variant="secondary">
+                                                <Button slot="close" variant="secondary" className={`text-white`}>
                                                     Cancel
                                                 </Button>
-                                                <Button type="submit" slot="close">Send Message</Button>
+                                                <Button type="submit" slot="close" className={`text-black bg-white`}>Send Message</Button>
                                             </Modal.Footer> 
                                         </div> 
                                     </form>

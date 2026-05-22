@@ -28,9 +28,9 @@ const FacilityDetailsPage = async ({ params }) => {
     const handelSubmit = async (formData) => {
         "use server";
 
-        // if (!userID) {
-        //     redirect("/login");
-        // }
+        if (!userID) {
+            redirect("/login");
+        }
         const bookingData = { 
             facility_id: data._id,
             facility_name: data.facilityName,

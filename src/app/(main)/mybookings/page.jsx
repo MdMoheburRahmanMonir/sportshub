@@ -16,22 +16,28 @@ const MyBookingPage = async () => {
     });
 
     const userId = session?.user?.id;
-    console.log(session?.user?.email);
 
-    if (!userId) {
-        redirect("/login");
-    }
 
-    console.log(userId);
-    
+
+    // if (!userId) {
+    //     redirect("/login");
+    // }
+
+
     const res = await fetch(
-        `${process.env.SERVER_URL}/mybookings/${userId}`,
-        { cache: "no-store"}
+        `${process.env.SERVER_URL}/mybookings/${userId}`, {
+        cache: "no-store",
+        headers: {
+            'authorization': `${token}`,
+        }
+    }
     );
+
 
     const Path = 'mybookings';
 
     const data = await res.json();
+    console.log(data);
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-10">
@@ -39,7 +45,7 @@ const MyBookingPage = async () => {
                 My Bookings
             </h1>
             <p className="text-4xl font-bold mb-8 text-center">
-                Your total amount is {data.reduce((sum, item) => sum + item.total_price, 0)}৳
+                Your total amount is {data?.reduce((sum, item) => sum + item.total_price, 0)}৳
             </p>
             {data.length === 0 ? (
                 <div className="text-center text-xl font-medium mb-40">
@@ -47,7 +53,7 @@ const MyBookingPage = async () => {
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {data.map((booking) => (
+                    {data?.map((booking) => (
                         <div
                             key={booking._id}
                             className="shadow-lg rounded-2xl p-6 "
@@ -81,7 +87,7 @@ const MyBookingPage = async () => {
                                 />
                                 <DeleteButton
                                     token={token}
-                                    facilityId={booking.facility_id}
+                                    Booking_Id={booking._id}
                                     Path={Path}
                                 />
                             </div>

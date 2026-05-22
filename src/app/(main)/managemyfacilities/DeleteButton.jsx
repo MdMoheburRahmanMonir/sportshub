@@ -4,7 +4,7 @@ import { AlertDialog, Button } from "@heroui/react";
 import { LuTrash2 } from "react-icons/lu";
 import { MdDeleteForever } from "react-icons/md";
 import { toast } from "react-toastify";
-const DeleteButton = ({ Booking_Id, token ,Path }) => {
+const DeleteButton = ({ Booking_Id, token, Path }) => {
 
     const handelDelete = async () => {
         const res = await fetch(
@@ -16,11 +16,11 @@ const DeleteButton = ({ Booking_Id, token ,Path }) => {
                 // }
             }
         );
-        if (res.ok) { 
+        if (res.ok) {
             window.location.reload();
             toast('You are success')
-        } 
-        const result = await res.json(); 
+        }
+        const result = await res.json();
     };
 
     return (
@@ -31,7 +31,7 @@ const DeleteButton = ({ Booking_Id, token ,Path }) => {
                     <AlertDialog.Dialog className="sm:max-w-[400px] bg-black/20 backdrop-blur-[5px]">
                         <AlertDialog.CloseTrigger className={`text-white`} />
                         <AlertDialog.Header>
-                            <LuTrash2 className="text-white"/>
+                            <LuTrash2 className="text-white" />
                             <AlertDialog.Heading className="text-white">Delete my Bookings?</AlertDialog.Heading>
                         </AlertDialog.Header>
                         <AlertDialog.Body className="text-white ">

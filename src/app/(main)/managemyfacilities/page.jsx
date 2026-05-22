@@ -1,11 +1,11 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-import { FaEdit, FaTrash, FaMapMarkerAlt, FaUsers, FaDollarSign } from "react-icons/fa";
-import DeleteButton from "../mybookings/DeleteButton";
+import { FaEdit, FaTrash, FaMapMarkerAlt, FaUsers, FaDollarSign } from "react-icons/fa"; 
 
 import { Envelope } from "@gravity-ui/icons";
 import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
 import EditButton from "./EditButton";
+import DeleteButton from "./DeleteButton";
 
 export default async function ManageMyFacilitiesPage() {
 
@@ -99,6 +99,7 @@ export default async function ManageMyFacilitiesPage() {
                                 <EditButton
                                     token={token}
                                     id={item._id}
+                                    fsName={item.facilityName}
                                 /> 
                                 <DeleteButton facilityId={item._id} token={token}  Path={Path}  />
                             </div>

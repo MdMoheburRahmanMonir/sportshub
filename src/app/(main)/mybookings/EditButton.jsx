@@ -1,9 +1,10 @@
 "use client";
 
+import { Button, Modal } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const EditButton = ({ token, booking,Path }) => {
+const EditButton = ({ token, booking, Path }) => {
     const [open, setOpen] = useState(false);
     const router = useRouter()
     const handleSubmit = async (e) => {
@@ -24,9 +25,9 @@ const EditButton = ({ token, booking,Path }) => {
             body: JSON.stringify(forDataTaken),
         });
         const mainData = await resData.json()
-        if (resData.ok) { 
+        if (resData.ok) {
             window.location.reload();
-        } 
+        }
     };
 
 
@@ -37,16 +38,11 @@ const EditButton = ({ token, booking,Path }) => {
     return (
         <>
             {/* Edit Button */}
-            <button
-                onClick={() => setOpen(true)}
-                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded-full"
-            >
-                ✏️ Edit
-            </button>
+            <Button onClick={() => setOpen(true)} variant="secondary" className="text-white rounded-lg bg-blue-600">✏️ Edit Facilities</Button>
 
             {/* Modal */}
             {open && (
-                <div className="fixed inset-0 bg-black/30 dark:bg-white/30  rounded-lg backdrop-blur-sm flex items-center justify-center z-50">
+                <div className="fixed inset-0 bg-black/70 rounded-lg backdrop-blur-sm flex items-center justify-center z-50">
                     <div className="
                                 w-[92%] max-w-lg 
                                 p-6 rounded-2xl 
@@ -57,81 +53,45 @@ const EditButton = ({ token, booking,Path }) => {
                             ">
 
                         {/* Header */}
-                        <h2 className="text-2xl font-bold mb-6 text-black dark:text-white">
+                        <h2 className="text-2xl font-bold mb-6 text-white">
                             Edit Booking
                         </h2>
 
                         {/* Form */}
                         <form onSubmit={handleSubmit} className="space-y-4">
 
+                            {/* name="booking_date" */}
+
 
                             <input
-                                type="date"
                                 name="booking_date"
-                                className="
-                                        w-full p-3 rounded-xl 
-                                        bg-white/20 dark:bg-slate-800/40
-                                        backdrop-blur-md border border-white/10
-                                        text-black dark:text-white  focus:outline-none focus:ring-2 focus:ring-blue-600
-                                        transition shadow dark:shadow-white/20 shadow-black/20
-                                        "
+                                type="date"
+                                placeholder="Price per hour"
+                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                            // className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
                             />
-
                             <input
-                                type="text"
                                 name="time_slot"
+                                type="text"
                                 placeholder="Time Slot"
-                                className="
-                                        w-full p-3 rounded-xl   bg-white/20 dark:bg-slate-800/40 backdrop-blur-md
-                                        border border-white/10 dark:placeholder:text-white placeholder:text-black
-                                        text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600
-                                        transition shadow dark:shadow-white/20 shadow-black/20
-                                    "
+                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                            // className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
                             />
-
                             <input
-                                type="number"
                                 name="hours"
+                                type="number"
                                 placeholder="Hours"
-                                className="
-                                        w-full p-3 rounded-xl 
-                                        bg-white/20 dark:bg-slate-800/40 backdrop-blur-md  border border-white/10
-                                        text-black dark:text-white  placeholder:text-black dark:placeholder:text-white
-                                        focus:outline-none focus:ring-2 focus:ring-blue-600
-                                        transition shadow dark:shadow-white/20 shadow-black/20
-                                        "
+                                className=" w-full mt-2 px-4 py-3 rounded-xl text-white bg-transparent shadow-lg  shadow-white/15   placeholder:text-white/60 focus:outline-none"
+                            // className="w-full px-4 py-3 rounded-xl text-white bg-white/10 placeholder:text-white/60"
                             />
 
 
-                            <div className="flex justify-end gap-3 pt-4">
-
-                                <button
-                                    type="button"
-                                    onClick={() => setOpen(false)}
-                                    className="
-                                        px-5 py-2 rounded-xl
-                                        bg-black dark:bg-white hover:bg-slate-500
-                                        dark:text-black text-white
-                                        transition
-                    "
-                                >
+                            <Modal.Footer className="flex gap-4 justify-end pt-4">
+                                <Button onClick={() => setOpen(false)} slot="close" variant="secondary" className={`text-white`}>
                                     Cancel
-                                </button>
-
-                                <button
-                                    type="submit"
-                                    className="
-                        px-5 py-2 rounded-xl
-                        bg-blue-600 hover:bg-blue-700
-                        text-white font-semibold
-                        shadow-md
-                        transition 
-                    "
-                                >
-                                    Save Changes
-                                </button>
-
-                            </div>
+                                </Button>
+                                <Button type="submit" slot="close" className={`text-black bg-white`}>Send Message</Button>
+                            </Modal.Footer>
                         </form>
                     </div>
                 </div>

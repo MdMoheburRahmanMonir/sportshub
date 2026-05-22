@@ -22,6 +22,7 @@ export default function Navbar() {
         { name: 'Add Facilities', href: '/addfacilities' },
         { name: 'My Bookings', href: '/mybookings' },
         { name: 'Dashboard', href: '/managemyfacilities' },
+        { name: 'Profile', href: '/profile' },
     ];
     const handelSignOut = async e => {
         await authClient.signOut();
@@ -44,7 +45,7 @@ export default function Navbar() {
             </div>
 
             <div className="hidden md:hidden lg:flex justify-self-center rounded-full px-4 p-2 backdrop-blur-[8px] dark:bg-white/10 border border-black/2 dark:border-white/20 bg-black/10 shadow-[inset_0_0_2px_1px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0_2px_1px_rgba(255,255,255,0.1)] md:flex items-center space-x-4">
-                {navLinks.slice(0, session?.user ? 5 : 5).map((link) => {
+                {navLinks.slice(0, session?.user ? 6 : 6).map((link) => {
                     const isActive = pathname === link.href;
 
                     return (
